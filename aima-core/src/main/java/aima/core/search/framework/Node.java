@@ -35,14 +35,14 @@ public class Node {
 	private Object state;
 
 	// n.PARENT: the node in the search tree that generated this node;
-	private Node parent;
+	protected Node parent;
 
 	// n.ACTION: the action that was applied to the parent to generate the node;
-	private Action action;
+	protected Action action;
 
 	// n.PATH-COST: the cost, traditionally denoted by g(n), of the path from
 	// the initial state to the node, as indicated by the parent pointers.
-	private double pathCost;
+	protected double pathCost;
 
 	/**
 	 * Constructs a node with the specified state.
