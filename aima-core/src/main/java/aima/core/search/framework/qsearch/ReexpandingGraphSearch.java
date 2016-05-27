@@ -33,22 +33,11 @@ public class ReexpandingGraphSearch extends QueueSearch {
 		return super.search(problem, frontier);
 	}
 	
-	@Override
-	protected void insertIntoFrontier(Node node) {
-		if(!(node instanceof ReexpandingNode))
-			throw new IllegalArgumentException("The node is not an instance of "
-					+ "ReexpandingNode. ReexpandingGraphSearch only works with "
-					+ "ReexpandingNodes.");
-		
-		insertIntoFrontier((ReexpandingNode) node);
-		
-	}
-	
 	/**
 	 * Inserts the node at the tail of the frontier if the corresponding state
 	 * was not yet explored.
 	 */
-	protected void insertIntoFrontier(ReexpandingNode node) {
+	protected void insertIntoFrontier(Node node) {
 		
 		// If the node has already been opened...
 		if(opened.containsKey(node.getState())) {
@@ -62,16 +51,17 @@ public class ReexpandingGraphSearch extends QueueSearch {
 				// The node's children (an their children, etc) must recalculate their pathCost
 				// The frontier must be reordered. This is done by removing and reinserting any node that has been modified.
 				recalculateChildrensPathCost(alreadyOpenedNode);
-				
 			}
 		}
 		
 		else {
 			// If the node hasn't been opened before it's put in the opened map and inserted in the frontier
-			frontier.insert(node);
+			
+			ReexpandingNode rNode = ReexpandingNode.cloneNode(node);
+			frontier.insert(rNode);
 			updateMetrics(frontier.size());
-			opened.put(node.getState(), node);
-			((ReexpandingNode) node.getParent()).addChild(node);
+			opened.put(rNode.getState(), rNode);
+			((ReexpandingNode) rNode.getParent()).addChild(rNode);
 		}
 		
 	}

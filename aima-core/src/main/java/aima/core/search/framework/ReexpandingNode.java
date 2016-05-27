@@ -21,15 +21,7 @@ public class ReexpandingNode extends Node {
 		this.stepCost = stepCost;
 	}
 	
-	@Override
-	public double getPathCost() {
-		if(parent == null)
-			return 0;
-		
-		return parent.getPathCost() + stepCost;
-	}
-	
-	public void rectify(ReexpandingNode node) {
+	public void rectify(Node node) {
 		
 		if(!node.getState().equals(getState()))
 			throw new IllegalArgumentException("Cannot rectify the node "
@@ -59,6 +51,15 @@ public class ReexpandingNode extends Node {
 	
 	public Iterator<ReexpandingNode> getChildrenIterator() {
 		return children.iterator();
+	}
+	
+	public static ReexpandingNode cloneNode(Node node) {
+		double stepCost = 0;
+		
+		if(node.getParent() != null)
+			stepCost = node.getPathCost() - node.getParent().getPathCost();
+		
+		return new ReexpandingNode(node.getState(), node.getParent(), node.getAction(), stepCost);
 	}
 
 }
