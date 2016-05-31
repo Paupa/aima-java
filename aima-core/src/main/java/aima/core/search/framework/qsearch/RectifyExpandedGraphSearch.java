@@ -17,10 +17,12 @@ import aima.core.util.datastructure.Queue;
  * @author Paula Díaz Puertas
  *
  */
-public class ReexpandingGraphSearch extends QueueSearch {
+public class RectifyExpandedGraphSearch extends QueueSearch {
+	
+	public static final String METRIC_NODES_REEXPANDED = "nodesReexpanded";
 	
 	// Saves all the nodes that have been put in the frontier. The key is their state.
-	private Map<Object, ReexpandingNode> opened = new HashMap<>();
+	private Map<Object, ReexpandingNode> explored = new HashMap<>();
 	
 	/**
 	 * Clears the map of opened nodes and calls the search implementation of
@@ -29,7 +31,7 @@ public class ReexpandingGraphSearch extends QueueSearch {
 	@Override
 	public List<Action> search(Problem problem, Queue<Node> frontier) {
 		// Initialize the opened map to be empty
-		opened.clear();
+		explored.clear();
 		return super.search(problem, frontier);
 	}
 	
@@ -40,13 +42,14 @@ public class ReexpandingGraphSearch extends QueueSearch {
 	protected void insertIntoFrontier(Node node) {
 		
 		// If the node has already been opened...
-		if(opened.containsKey(node.getState())) {
-			ReexpandingNode alreadyOpenedNode = opened.get(node.getState());
+		if(explored.containsKey(node.getState())) {
+			ReexpandingNode alreadyOpenedNode = explored.get(node.getState());
 			
 			// If the new path is better than the path we had before...
 			if(node.getPathCost() < alreadyOpenedNode.getPathCost()) {
 				// We modify the data of the node we have saved with the new path
 				alreadyOpenedNode.rectify(node);
+				metrics.incrementInt(METRIC_NODES_REEXPANDED);
 
 				// The node's children (an their children, etc) must recalculate their pathCost
 				// The frontier must be reordered. This is done by removing and reinserting any node that has been modified.
@@ -60,8 +63,12 @@ public class ReexpandingGraphSearch extends QueueSearch {
 			ReexpandingNode rNode = ReexpandingNode.cloneNode(node);
 			frontier.insert(rNode);
 			updateMetrics(frontier.size());
-			opened.put(rNode.getState(), rNode);
-			((ReexpandingNode) rNode.getParent()).addChild(rNode);
+			explored.put(rNode.getState(), rNode);
+			
+			ReexpandingNode parent = ((ReexpandingNode) rNode.getParent());
+			
+			if(parent != null)
+				parent.addChild(rNode);
 		}
 		
 	}
@@ -97,6 +104,12 @@ public class ReexpandingGraphSearch extends QueueSearch {
 			frontier.remove(parent);
 			frontier.insert(parent);
 		}
+	}
+	
+	@Override
+	public void clearInstrumentation() {
+		super.clearInstrumentation();
+		metrics.set(METRIC_NODES_REEXPANDED, 0);
 	}
 	
 }

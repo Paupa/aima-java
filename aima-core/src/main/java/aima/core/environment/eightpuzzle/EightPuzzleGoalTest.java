@@ -14,4 +14,9 @@ public class EightPuzzleGoalTest implements GoalTest {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
 		return board.equals(goal);
 	}
+
+	@Override
+	public String toString() {
+		return goal.toString();
+	}
 }
