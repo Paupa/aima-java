@@ -19,14 +19,15 @@ import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.QueueSearch;
 import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
+import aima.core.search.framework.qsearch.ReexpandingGraphSearch;
 import aima.core.search.informed.AStarSearch;
 
 public class AStarSearchNonConsistentHeuristicDemo {
 
 	// Este es el estado inicial
 	static EightPuzzleBoard initialState = new EightPuzzleBoard(new int[]
-	// {2, 1, 3, 8, 0, 4, 7, 6, 5 } // Coste 9
-	 { 1, 4, 2, 7, 5, 8, 3, 0, 6 } // Coste 24
+	 {2, 1, 3, 8, 0, 4, 7, 6, 5 } // Coste 24
+	//{ 1, 4, 2, 7, 5, 8, 3, 0, 6 } // Coste 9
 	//
 	// Otras instancias
 	// { 4, 5, 7, 6, 0, 3, 8, 2, 1} // Coste 20
@@ -44,23 +45,27 @@ public class AStarSearchNonConsistentHeuristicDemo {
 		// Con heuristicos monotonos el resultado deberia ser EL MISMO
 		// Con heuristicos no monotonos el ReexpandingGraphSearch deberia
 		// encontrar soluciones iguales o mejores
-		
+
 		System.out.println("- ISSUE 75 TESTING -\n\n");
 
 		// Diferencias con el heuristico Null
 		eightPuzzleAStarForConsistentNullDemo();
+		eightPuzzleAStarRectifyExpandedNullDemo();
 		eightPuzzleAStarReexpandingNullDemo();
 
 		// Diferencias con el heuristico Misplaced
 		eightPuzzleAStarForConsistentMisplacedDemo();
+		eightPuzzleAStarRectifyExpandedMisplacedDemo();
 		eightPuzzleAStarReexpandingMisplacedDemo();
 
 		// Diferencias con el heuristico Manhattan
 		eightPuzzleAStarForConsistentManhattanDemo();
+		eightPuzzleAStarRectifyExpandedManhattanDemo();
 		eightPuzzleAStarReexpandingManhattanDemo();
 
 		// Diferencias con el heuristico NoConsistent
 		eightPuzzleAStarForConsistentNoConsistentDemo();
+		eightPuzzleAStarRectifyExpandedNoConsistentDemo();
 		eightPuzzleAStarReexpandingNoConsistentDemo();
 
 	}
@@ -75,18 +80,22 @@ public class AStarSearchNonConsistentHeuristicDemo {
 			Search search = new AStarSearch(qSearch, heuristic);
 			SearchAgent agent = new SearchAgent(problem, search);
 			System.out.println("Goal State:\n" + goalState.toString() + "\n");
-			//printActions(agent.getActions());
-			//System.out.println();
+			// printActions(agent.getActions());
+			// System.out.println();
 			printInstrumentation(agent.getInstrumentation());
-			
+
 			System.out.println("\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	private static void AStarRectifyExpandedSearch(String title, HeuristicFunction heuristic) {
+		AStarSearch("[RECTIFY EXPANDED] " + title, new RectifyExpandedGraphSearch(), heuristic);
+	}
+
 	private static void AStarReexpandingSearch(String title, HeuristicFunction heuristic) {
-		AStarSearch("[REEXPANDING] " + title, new RectifyExpandedGraphSearch(), heuristic);
+		AStarSearch("[REEXPANDING] " + title, new ReexpandingGraphSearch(), heuristic);
 	}
 
 	private static void AStarConsistentSearch(String title, HeuristicFunction heuristic) {
@@ -96,8 +105,29 @@ public class AStarSearchNonConsistentHeuristicDemo {
 	// --------------------------------------------------------------------------------------------
 	// -- A* Search AUTENTICO con los 4 heurísticos conocidos, h0, h1, h2, h3 --
 	// -
-	// - es la de Russell y Norving modificada para que reinserte nodos ya
-	// expandidos en ABIERTA -
+	// - es la de Russell y Norving modificada para que rectifique nodos ya expandidos
+	// --------------------------------------------------------------------------------------------
+
+	private static void eightPuzzleAStarRectifyExpandedNullDemo() {
+		AStarRectifyExpandedSearch("Null heuristic", new NullHeuristicFunction());
+	}
+
+	private static void eightPuzzleAStarRectifyExpandedMisplacedDemo() {
+		AStarRectifyExpandedSearch("Misplaced heuristic", new MisplacedTilleHeuristicFunction());
+	}
+
+	private static void eightPuzzleAStarRectifyExpandedManhattanDemo() {
+		AStarRectifyExpandedSearch("Manhattan heuristic", new ManhattanHeuristicFunction());
+	}
+
+	private static void eightPuzzleAStarRectifyExpandedNoConsistentDemo() {
+		AStarRectifyExpandedSearch("Non-consistent heuristic", new NoConsistentHeuristicFunction());
+	}
+
+	// --------------------------------------------------------------------------------------------
+	// -- A* Search AUTENTICO con los 4 heurísticos conocidos, h0, h1, h2, h3 --
+	// -
+	// - es la de Russell y Norving modificada para que reinserte nodos ya expandidos en ABIERTA -
 	// --------------------------------------------------------------------------------------------
 
 	private static void eightPuzzleAStarReexpandingNullDemo() {

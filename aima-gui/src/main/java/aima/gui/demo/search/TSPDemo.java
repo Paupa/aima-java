@@ -18,6 +18,7 @@ import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.QueueSearch;
 import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
+import aima.core.search.framework.qsearch.ReexpandingGraphSearch;
 import aima.core.search.informed.AStarSearch;
 
 public class TSPDemo {
@@ -27,12 +28,15 @@ public class TSPDemo {
 		System.out.println("- TSP IMPLEMENTATION TESTING -\n\n");
 		
 		TSP1AStarForConsistentNullDemo();
+		TSP1AStarRectifyExpandedNullDemo();
 		TSP1AStarReexpandingNullDemo();
 		
 		TSP2AStarForConsistentNullDemo();
+		TSP2AStarRectifyExpandedNullDemo();
 		TSP2AStarReexpandingNullDemo();
 		
 		TSP3AStarForConsistentNullDemo();
+		TSP3AStarRectifyExpandedNullDemo();
 		TSP3AStarReexpandingNullDemo();
 
 	}
@@ -171,34 +175,55 @@ public class TSPDemo {
 		}
 	}
 	
+	private static void AStarRectifyExpandedSearch(String title, TravelingSalesmanState initialState,
+			HeuristicFunction heuristic) {
+		AStarSearch("[RECTIFY EXPANDED] " + title, initialState, new RectifyExpandedGraphSearch(), heuristic);
+	}
+	
+	private static void AStarReexpandingSearch(String title, TravelingSalesmanState initialState,
+			HeuristicFunction heuristic) {
+		AStarSearch("[REEXPANDING] " + title, initialState, new ReexpandingGraphSearch(), heuristic);
+	}
+	
+	private static void AStarConsistentSearch(String title, TravelingSalesmanState initialState,
+			HeuristicFunction heuristic) {
+		AStarSearch("[CONSISTENT] " + title, initialState, new GraphSearch(), heuristic);
+	}
+	
+	private static void TSP1AStarRectifyExpandedNullDemo() {
+		AStarRectifyExpandedSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
+	}
+	
 	private static void TSP1AStarReexpandingNullDemo() {
-		AStarSearch("Problem 1 Null heuristic [Reexpanding]", instantiateProblem1(), 
-				new RectifyExpandedGraphSearch(), new NullHeuristicFunction());
+		AStarReexpandingSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
 	}
 	
 	private static void TSP1AStarForConsistentNullDemo() {
-		AStarSearch("Problem 1 Null heuristic [CONSISTENT]", instantiateProblem1(),
-				new GraphSearch(), new NullHeuristicFunction());
+		AStarConsistentSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
+	}
+	
+	private static void TSP2AStarRectifyExpandedNullDemo() {
+		AStarRectifyExpandedSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
 	}
 	
 	private static void TSP2AStarReexpandingNullDemo() {
-		AStarSearch("Problem 2 Null heuristic [Reexpanding]", instantiateProblem2(), 
-				new RectifyExpandedGraphSearch(), new NullHeuristicFunction());
+		AStarReexpandingSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
 	}
 	
 	private static void TSP2AStarForConsistentNullDemo() {
-		AStarSearch("Problem 2 Null heuristic [CONSISTENT]", instantiateProblem2(),
-				new GraphSearch(), new NullHeuristicFunction());
+		AStarConsistentSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
+	}
+	
+	private static void TSP3AStarRectifyExpandedNullDemo() {
+		AStarRectifyExpandedSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
 	}
 	
 	private static void TSP3AStarReexpandingNullDemo() {
-		AStarSearch("Problem 3 Null heuristic [Reexpanding]", instantiateProblem3(), 
-				new RectifyExpandedGraphSearch(), new NullHeuristicFunction());
+		AStarReexpandingSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
 	}
 	
 	private static void TSP3AStarForConsistentNullDemo() {
-		AStarSearch("Problem 3 Null heuristic [CONSISTENT]", instantiateProblem3(),
-				new GraphSearch(), new NullHeuristicFunction());
+		AStarConsistentSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
 	}
 
 	// -- Métodos auxiliares para mostrar resultados --
