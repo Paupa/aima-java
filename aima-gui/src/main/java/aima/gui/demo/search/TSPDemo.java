@@ -7,10 +7,7 @@ import java.util.Properties;
 
 import aima.core.agent.Action;
 import aima.core.environment.eightpuzzle.NullHeuristicFunction;
-import aima.core.environment.tsp.City;
-import aima.core.environment.tsp.TravelingSalesmanFunctionFactory;
-import aima.core.environment.tsp.TravelingSalesmanGoalState;
-import aima.core.environment.tsp.TravelingSalesmanState;
+import aima.core.environment.tsp.*;
 import aima.core.search.framework.HeuristicFunction;
 import aima.core.search.framework.Problem;
 import aima.core.search.framework.Search;
@@ -20,6 +17,7 @@ import aima.core.search.framework.qsearch.QueueSearch;
 import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
 import aima.core.search.framework.qsearch.ReexpandingGraphSearch;
 import aima.core.search.informed.AStarSearch;
+import aima.gui.demo.search.util.TitledPart;
 
 public class TSPDemo {
 
@@ -27,17 +25,33 @@ public class TSPDemo {
 		
 		System.out.println("- TSP IMPLEMENTATION TESTING -\n\n");
 		
-		TSP1AStarForConsistentNullDemo();
-		TSP1AStarRectifyExpandedNullDemo();
-		TSP1AStarReexpandingNullDemo();
+		List<TitledPart<TravelingSalesmanState>> problems = new ArrayList<>();
+		problems.add(new TitledPart<TravelingSalesmanState>("Problem 1", instantiateProblem1()));
+		problems.add(new TitledPart<TravelingSalesmanState>("Problem 2", instantiateProblem2()));
+		problems.add(new TitledPart<TravelingSalesmanState>("Problem 3", instantiateProblem3()));
 		
-		TSP2AStarForConsistentNullDemo();
-		TSP2AStarRectifyExpandedNullDemo();
-		TSP2AStarReexpandingNullDemo();
+		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
+		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs heuristic", new MinimumCostArcHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining arcs heuristic", new SumArcsHeuristicFunction()));
 		
-		TSP3AStarForConsistentNullDemo();
-		TSP3AStarRectifyExpandedNullDemo();
-		TSP3AStarReexpandingNullDemo();
+		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
+		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new RectifyExpandedGraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new ReexpandingGraphSearch()));
+		
+		for(TitledPart<TravelingSalesmanState> problem : problems) {
+			
+			for(TitledPart<HeuristicFunction> heuristic : heuristics) {
+				
+				for(TitledPart<QueueSearch> search : searchs) {
+					
+					AStarSearch(search.getTitle() + " " + problem.getTitle() + " " + heuristic.getTitle(), 
+							problem.getPart(), search.getPart(), heuristic.getPart());
+				}
+			}
+		}
 
 	}
 
@@ -174,57 +188,6 @@ public class TSPDemo {
 			e.printStackTrace();
 		}
 	}
-	
-	private static void AStarRectifyExpandedSearch(String title, TravelingSalesmanState initialState,
-			HeuristicFunction heuristic) {
-		AStarSearch("[RECTIFY EXPANDED] " + title, initialState, new RectifyExpandedGraphSearch(), heuristic);
-	}
-	
-	private static void AStarReexpandingSearch(String title, TravelingSalesmanState initialState,
-			HeuristicFunction heuristic) {
-		AStarSearch("[REEXPANDING] " + title, initialState, new ReexpandingGraphSearch(), heuristic);
-	}
-	
-	private static void AStarConsistentSearch(String title, TravelingSalesmanState initialState,
-			HeuristicFunction heuristic) {
-		AStarSearch("[CONSISTENT] " + title, initialState, new GraphSearch(), heuristic);
-	}
-	
-	private static void TSP1AStarRectifyExpandedNullDemo() {
-		AStarRectifyExpandedSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP1AStarReexpandingNullDemo() {
-		AStarReexpandingSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP1AStarForConsistentNullDemo() {
-		AStarConsistentSearch("Problem 1 Null heuristic", instantiateProblem1(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP2AStarRectifyExpandedNullDemo() {
-		AStarRectifyExpandedSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP2AStarReexpandingNullDemo() {
-		AStarReexpandingSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP2AStarForConsistentNullDemo() {
-		AStarConsistentSearch("Problem 2 Null heuristic", instantiateProblem2(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP3AStarRectifyExpandedNullDemo() {
-		AStarRectifyExpandedSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP3AStarReexpandingNullDemo() {
-		AStarReexpandingSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
-	}
-	
-	private static void TSP3AStarForConsistentNullDemo() {
-		AStarConsistentSearch("Problem 3 Null heuristic", instantiateProblem3(), new NullHeuristicFunction());
-	}
 
 	// -- Métodos auxiliares para mostrar resultados --
 
@@ -245,5 +208,4 @@ public class TSPDemo {
 			System.out.println(action);
 		}
 	}
-
 }
