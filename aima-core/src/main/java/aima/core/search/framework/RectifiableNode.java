@@ -6,17 +6,17 @@ import java.util.Set;
 
 import aima.core.agent.Action;
 
-public class ReexpandingNode extends Node {
+public class RectifiableNode extends Node {
 	
 	private double stepCost;
 	
-	private Set<ReexpandingNode> children = new HashSet<>();
+	private Set<RectifiableNode> children = new HashSet<>();
 
-	public ReexpandingNode(Object state) {
+	public RectifiableNode(Object state) {
 		super(state);
 	}
 	
-	public ReexpandingNode(Object state, Node parent, Action action, double stepCost) {
+	public RectifiableNode(Object state, Node parent, Action action, double stepCost) {
 		super(state, parent, action, stepCost);
 		this.stepCost = stepCost;
 	}
@@ -27,10 +27,10 @@ public class ReexpandingNode extends Node {
 			throw new IllegalArgumentException("Cannot rectify the node "
 					+ "with the data of a node with another state.");
 		
-		((ReexpandingNode) parent).removeChild(this);
+		((RectifiableNode) parent).removeChild(this);
 		
 		this.parent = node.getParent();
-		((ReexpandingNode) parent).addChild(this);
+		((RectifiableNode) parent).addChild(this);
 		
 		this.action = node.getAction();
 		this.pathCost = node.getPathCost();
@@ -41,25 +41,25 @@ public class ReexpandingNode extends Node {
 		pathCost = parent.getPathCost() + stepCost;
 	}
 	
-	public void addChild(ReexpandingNode child) {
+	public void addChild(RectifiableNode child) {
 		children.add(child);
 	}
 	
-	public void removeChild(ReexpandingNode child) {
+	public void removeChild(RectifiableNode child) {
 		children.remove(child);
 	}
 	
-	public Iterator<ReexpandingNode> getChildrenIterator() {
+	public Iterator<RectifiableNode> getChildrenIterator() {
 		return children.iterator();
 	}
 	
-	public static ReexpandingNode cloneNode(Node node) {
+	public static RectifiableNode cloneNode(Node node) {
 		double stepCost = 0;
 		
 		if(node.getParent() != null)
 			stepCost = node.getPathCost() - node.getParent().getPathCost();
 		
-		return new ReexpandingNode(node.getState(), node.getParent(), node.getAction(), stepCost);
+		return new RectifiableNode(node.getState(), node.getParent(), node.getAction(), stepCost);
 	}
 
 }
