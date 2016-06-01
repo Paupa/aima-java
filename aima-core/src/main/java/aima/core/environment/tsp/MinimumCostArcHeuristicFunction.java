@@ -12,8 +12,6 @@ public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunctio
 		
 		//We find the route with the minimum cost and the routes
 		double minCost = Double.MAX_VALUE;
-		//We save the number of routes that can be taken
-		int routes = 0;
 		
 		for(City from : toVisit) {
 			
@@ -21,16 +19,12 @@ public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunctio
 				
 				Integer cost = from.getCost(to);
 				
-				if(cost != null) {
-					routes++;
-					
-					if(cost < minCost)
+				if(cost != null && cost < minCost)
 						minCost = cost;
-				}
 			}
 		}
 		
-		return minCost * routes;
+		return minCost * toVisit.size();
 	}
 
 }

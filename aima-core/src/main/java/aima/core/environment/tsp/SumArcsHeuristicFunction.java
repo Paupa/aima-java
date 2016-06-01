@@ -11,18 +11,22 @@ public class SumArcsHeuristicFunction extends AbstractTSPHeuristicFunction {
 		
 		double sumArcs = 0;
 		
+		int routes = 0;
+		
 		for(City from : toVisit) {
 			
 			for(City to : toVisit) {
 				
 				Integer cost = from.getCost(to);
 				
-				if(cost != null)
+				if(cost != null) {
 					sumArcs += cost;
+					routes++;
+				}
 			}
 		}
 		
-		return sumArcs;
+		return sumArcs / routes * toVisit.size();
 	}
 
 }
