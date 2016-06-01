@@ -18,7 +18,7 @@ public class NoConsistentHeuristicFunction implements HeuristicFunction {
 		int retVal = 0;
 		for (int i = 1; i < 9; i++) {
 			XYLocation loc = board.getLocationOf(i);
-			XYLocation locGS = goalState.goal.getLocationOf(i);
+			XYLocation locGS = goalState.getGoal().getLocationOf(i);
 			retVal += evaluateManhattanDistanceOf(loc, locGS);
 		}
 		return retVal;

@@ -7,8 +7,20 @@ import aima.core.search.framework.GoalTest;
  * 
  */
 public class EightPuzzleGoalTest implements GoalTest {
-	EightPuzzleBoard goal = new EightPuzzleBoard(new int[] { 0, 1, 2, 3, 4, 5,
-			6, 7, 8 });
+	
+	private EightPuzzleBoard goal;
+	
+	public EightPuzzleGoalTest (){
+		this(new int[] { 1, 2, 3, 8, 0, 4, 7, 6, 5 });
+	}
+	
+	public EightPuzzleGoalTest (int [] aVector){
+		goal = new EightPuzzleBoard(aVector);
+	}
+	
+	public EightPuzzleBoard getGoal() {
+		return goal;
+	}
 
 	public boolean isGoalState(Object state) {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
