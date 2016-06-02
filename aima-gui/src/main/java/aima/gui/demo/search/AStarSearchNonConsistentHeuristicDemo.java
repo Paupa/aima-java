@@ -19,7 +19,7 @@ import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.QueueSearch;
 import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
-import aima.core.search.framework.qsearch.ReexpandingGraphSearch;
+import aima.core.search.framework.qsearch.ReinsertExpandedGraphSearch;
 import aima.core.search.informed.AStarSearch;
 
 public class AStarSearchNonConsistentHeuristicDemo {
@@ -95,7 +95,7 @@ public class AStarSearchNonConsistentHeuristicDemo {
 	}
 
 	private static void AStarReexpandingSearch(String title, HeuristicFunction heuristic) {
-		AStarSearch("[REEXPANDING] " + title, new ReexpandingGraphSearch(), heuristic);
+		AStarSearch("[REEXPANDING] " + title, new ReinsertExpandedGraphSearch(), heuristic);
 	}
 
 	private static void AStarConsistentSearch(String title, HeuristicFunction heuristic) {
