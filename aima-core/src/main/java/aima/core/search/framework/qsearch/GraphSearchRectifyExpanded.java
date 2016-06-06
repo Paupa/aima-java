@@ -19,7 +19,8 @@ import aima.core.util.datastructure.Queue;
  */
 public class GraphSearchRectifyExpanded extends QueueSearch {
 	
-	public static final String METRIC_NODES_RECTIFIED = "nodesRectified";
+	public static final String METRIC_NODES_RECTIFIED_IN_EXPANDED = "nodesRectifiedInExpanded";
+	public static final String METRIC_NODES_RECTIFIED_IN_FRONTIER = "nodesRectifiedInFrontier";
 	
 	// Saves all the nodes that have been put in the frontier. The key is their state.
 	private Map<Object, NodeRectifiable> explored = new HashMap<>();
@@ -49,7 +50,11 @@ public class GraphSearchRectifyExpanded extends QueueSearch {
 			if(node.getPathCost() < alreadyOpenedNode.getPathCost()) {
 				// We modify the data of the node we have saved with the new path
 				alreadyOpenedNode.rectify(node);
-				metrics.incrementInt(METRIC_NODES_RECTIFIED);
+				
+				if(frontier.contains(alreadyOpenedNode))
+					metrics.incrementInt(METRIC_NODES_RECTIFIED_IN_FRONTIER);
+				else
+					metrics.incrementInt(METRIC_NODES_RECTIFIED_IN_EXPANDED);
 
 				// The node's children (an their children, etc) must recalculate their pathCost
 				// The frontier must be reordered. This is done by removing and reinserting any node that has been modified.
@@ -109,7 +114,8 @@ public class GraphSearchRectifyExpanded extends QueueSearch {
 	@Override
 	public void clearInstrumentation() {
 		super.clearInstrumentation();
-		metrics.set(METRIC_NODES_RECTIFIED, 0);
+		metrics.set(METRIC_NODES_RECTIFIED_IN_EXPANDED, 0); 
+		metrics.set(METRIC_NODES_RECTIFIED_IN_FRONTIER, 0);
 	}
 	
 }

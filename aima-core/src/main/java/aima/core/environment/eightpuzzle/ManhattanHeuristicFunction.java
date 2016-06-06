@@ -18,7 +18,7 @@ public class ManhattanHeuristicFunction implements HeuristicFunction {
 	public double h(Object state) {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
 		int retVal = 0;
-		for (int i = 1; i <= 8; i++) {
+		for (int i = 1; i < 9; i++) {
 			XYLocation loc = board.getLocationOf(i);
 			XYLocation locGS = goal.getLocationOf(i);
 			retVal += evaluateManhattanDistanceOf(loc, locGS);

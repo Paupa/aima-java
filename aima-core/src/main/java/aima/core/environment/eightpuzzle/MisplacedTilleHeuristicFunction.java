@@ -22,7 +22,7 @@ public class MisplacedTilleHeuristicFunction implements HeuristicFunction {
 	private int getNumberOfMisplacedTiles(EightPuzzleBoard board) {
 		int numberOfMisplacedTiles = 0;
 		
-		for (int i = 1; i<9; i++)
+		for (int i = 1; i < 9; i++)
 		    if (!(board.getLocationOf(i).equals(goal.getLocationOf(i)))) {
 			    numberOfMisplacedTiles++;
 		    }
