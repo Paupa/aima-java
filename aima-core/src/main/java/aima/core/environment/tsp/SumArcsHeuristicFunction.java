@@ -26,7 +26,7 @@ public class SumArcsHeuristicFunction extends AbstractTSPHeuristicFunction {
 			}
 		}
 		
-		return sumArcs / routes * toVisit.size();
+		return (sumArcs / routes) * (toVisit.size() - 1);
 	}
 
 }

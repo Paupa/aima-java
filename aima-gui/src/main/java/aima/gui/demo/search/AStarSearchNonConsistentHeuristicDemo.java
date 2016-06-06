@@ -27,15 +27,24 @@ import aima.gui.demo.search.util.TitledPart;
 public class AStarSearchNonConsistentHeuristicDemo {
 
 	// Este es el estado inicial
-	static EightPuzzleBoard initialState = new EightPuzzleBoard(new int[] { 2, 1, 3, 8, 0, 4, 7, 6, 5 } // Coste
-																										// 24
-	// { 1, 4, 2, 7, 5, 8, 3, 0, 6 } // Coste 9
-	//
-	// Otras instancias
-	// { 4, 5, 7, 6, 0, 3, 8, 2, 1} // Coste 20
-	// { 8, 3, 7, 4, 0, 6, 5, 2, 1} // Coste 24
-	// { 6, 5, 3, 4, 0, 2, 7, 8, 1} // Coste 20
-	// { 3, 4, 7, 0, 8, 6, 5, 2, 1 } // Coste 23
+	static EightPuzzleBoard initialState = new EightPuzzleBoard(new int[]
+	// coste 25
+	// {6, 7, 4, 0, 5, 1, 3, 2, 8}
+	// {6, 0, 7, 5, 4, 1, 3, 8, 2}
+	// {3, 4, 8, 5, 7, 1, 6, 0, 2}
+	// {4, 5, 3, 7, 6, 2, 8, 0, 1}
+	// {2, 7, 8, 5, 4, 0, 3, 1, 6}
+	// coste 30
+	// { 5, 6, 7, 2, 8, 4, 0, 3, 1 }
+	// {5, 6, 7, 4, 0, 8, 3, 2, 1}
+	// {5, 4, 7, 6, 0, 3, 8, 2, 1}
+	// {3, 8, 7, 4, 0, 6, 5, 2, 1}
+	// {5, 6, 3, 4, 0, 2, 7, 8, 1}
+	// Instancias que no se resuelven con h3 y la version de A* que no rectifica
+	 { 6, 3, 2, 5, 7, 8, 0, 4, 1 } // 24
+	// { 6, 3, 2, 5, 8, 1, 4, 0, 7 } // 23
+	// { 3, 5, 6, 4, 2, 7, 0, 8, 1 } // 24
+	// { 7, 0, 2, 3, 6, 1, 5, 8, 4 } // 21
 	);
 
 	static EightPuzzleGoalTest goalState = new EightPuzzleGoalTest();
@@ -49,17 +58,20 @@ public class AStarSearchNonConsistentHeuristicDemo {
 		// encontrar soluciones iguales o mejores
 
 		System.out.println("- ISSUE 75 TESTING -\n\n");
-		
+
 		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
 		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Misplaced heuristic", new MisplacedTilleHeuristicFunction(goalState)));
-		heuristics.add(new TitledPart<HeuristicFunction>("Manhattan heuristic", new ManhattanHeuristicFunction(goalState)));
-		heuristics.add(new TitledPart<HeuristicFunction>("Non-consistent heuristic", new NoConsistentHeuristicFunction(goalState)));
-		
+		heuristics.add(new TitledPart<HeuristicFunction>("Misplaced heuristic",
+				new MisplacedTilleHeuristicFunction(goalState)));
+		heuristics.add(
+				new TitledPart<HeuristicFunction>("Manhattan heuristic", new ManhattanHeuristicFunction(goalState)));
+		heuristics.add(new TitledPart<HeuristicFunction>("Non-consistent heuristic",
+				new NoConsistentHeuristicFunction(goalState)));
+
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
 		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
-		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new GraphSearchReinsertExpanded()));
+		searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new GraphSearchReinsertExpanded()));
 
 		for (TitledPart<HeuristicFunction> heuristic : heuristics) {
 

@@ -12,7 +12,7 @@ import aima.core.search.framework.NodeRectifiable;
 import aima.core.util.datastructure.Queue;
 
 /**
- * This type of search only works with <code>RectifiableNode</code>.
+ * This type of search only works with <code>NodeRectifiable</code>.
  * 
  * @author Paula Díaz Puertas
  *

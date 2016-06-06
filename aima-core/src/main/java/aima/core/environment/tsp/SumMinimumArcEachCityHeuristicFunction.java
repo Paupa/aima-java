@@ -2,6 +2,8 @@ package aima.core.environment.tsp;
 
 import java.util.List;
 
+import aima.core.util.datastructure.PriorityQueue;
+
 public class SumMinimumArcEachCityHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override
@@ -10,22 +12,25 @@ public class SumMinimumArcEachCityHeuristicFunction extends AbstractTSPHeuristic
 		//We get all the routes than can be taken in this state
 		List<City> toVisit = getCitiesForRoutes(state);
 		
-		double minArcSum = 0;
+		PriorityQueue<Integer> arcs = new PriorityQueue<>();
 		
 		for(City from : toVisit) {
-			
-			double minArc = Double.MAX_VALUE;
 			
 			for(City to : toVisit) {
 				
 				Integer cost = from.getCost(to);
 				
-				if(cost != null && cost < minArc)
-					minArc = cost;
+				if(cost != null)
+					arcs.add(cost);
 				
 			}
-			
-			minArcSum += minArc;
+		}
+		
+		double minArcSum = 0;
+		
+		for(int i = 1; i < toVisit.size(); i++) {
+			if(!arcs.isEmpty())
+				minArcSum += arcs.poll();
 		}
 		
 		return minArcSum;

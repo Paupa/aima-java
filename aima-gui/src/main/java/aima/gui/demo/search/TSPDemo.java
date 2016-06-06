@@ -39,7 +39,7 @@ public class TSPDemo {
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
 		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
-		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new GraphSearchReinsertExpanded()));
+		searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new GraphSearchReinsertExpanded()));
 		
 		for(TitledPart<TravelingSalesmanState> problem : problems) {
 			

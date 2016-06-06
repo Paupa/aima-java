@@ -24,7 +24,7 @@ public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunctio
 			}
 		}
 		
-		return minCost * toVisit.size();
+		return minCost * (toVisit.size() - 1);
 	}
 
 }
