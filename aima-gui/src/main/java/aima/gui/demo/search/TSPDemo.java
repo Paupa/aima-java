@@ -14,8 +14,8 @@ import aima.core.search.framework.Search;
 import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.QueueSearch;
-import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
-import aima.core.search.framework.qsearch.ReinsertExpandedGraphSearch;
+import aima.core.search.framework.qsearch.GraphSearchRectifyExpanded;
+import aima.core.search.framework.qsearch.GraphSearchReinsertExpanded;
 import aima.core.search.informed.AStarSearch;
 import aima.gui.demo.search.util.TitledPart;
 
@@ -38,8 +38,8 @@ public class TSPDemo {
 		
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
-		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new RectifyExpandedGraphSearch()));
-		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new ReinsertExpandedGraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
+		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new GraphSearchReinsertExpanded()));
 		
 		for(TitledPart<TravelingSalesmanState> problem : problems) {
 			
