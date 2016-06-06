@@ -34,8 +34,8 @@ public class GreedyBestFirstSearchTest {
 			EightPuzzleBoard board = new EightPuzzleBoard(new int[] { 7, 1, 8, 0, 4, 6, 2, 3, 5 });
 
 			Problem problem = new Problem(board, EightPuzzleFunctionFactory.getActionsFunction(),
-					EightPuzzleFunctionFactory.getResultFunction(), new EightPuzzleGoalTest());
-			Search search = new GreedyBestFirstSearch(new GraphSearch(), new ManhattanHeuristicFunction());
+					EightPuzzleFunctionFactory.getResultFunction(), new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }));
+			Search search = new GreedyBestFirstSearch(new GraphSearch(), new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 })));
 			SearchAgent agent = new SearchAgent(problem, search);
 
 			Assert.assertEquals(49, agent.getActions().size()); // GraphSearchReducedFrontier: "49"
@@ -61,9 +61,9 @@ public class GreedyBestFirstSearchTest {
 			EightPuzzleBoard board = new EightPuzzleBoard(new int[] { 7, 1, 8, 0, 4, 6, 2, 3, 5 });
 
 			Problem problem = new Problem(board, EightPuzzleFunctionFactory.getActionsFunction(),
-					EightPuzzleFunctionFactory.getResultFunction(), new EightPuzzleGoalTest());
+					EightPuzzleFunctionFactory.getResultFunction(), new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }));
 			PrioritySearch search = new GreedyBestFirstSearch(new GraphSearchReducedFrontier(),
-					new ManhattanHeuristicFunction());
+					new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 })));
 
 			SearchAgent agent = new SearchAgent(problem, search);
 			Assert.assertEquals(49, agent.getActions().size());

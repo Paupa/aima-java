@@ -1,6 +1,7 @@
 package aima.core.environment.eightpuzzle;
 
 import aima.core.search.framework.GoalTest;
+import aima.core.util.datastructure.XYLocation;
 
 /**
  * @author Ravi Mohan
@@ -17,10 +18,6 @@ public class EightPuzzleGoalTest implements GoalTest {
 	public EightPuzzleGoalTest (int [] aVector){
 		goal = new EightPuzzleBoard(aVector);
 	}
-	
-	public EightPuzzleBoard getGoal() {
-		return goal;
-	}
 
 	public boolean isGoalState(Object state) {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
@@ -30,5 +27,9 @@ public class EightPuzzleGoalTest implements GoalTest {
 	@Override
 	public String toString() {
 		return goal.toString();
+	}
+
+	public XYLocation getLocationOf(int val) {
+		return goal.getLocationOf(val);
 	}
 }

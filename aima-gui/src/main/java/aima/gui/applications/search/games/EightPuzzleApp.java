@@ -21,6 +21,7 @@ import aima.core.agent.Percept;
 import aima.core.agent.impl.AbstractEnvironment;
 import aima.core.environment.eightpuzzle.BidirectionalEightPuzzleProblem;
 import aima.core.environment.eightpuzzle.EightPuzzleBoard;
+import aima.core.environment.eightpuzzle.EightPuzzleGoalTest;
 import aima.core.environment.eightpuzzle.ManhattanHeuristicFunction;
 import aima.core.environment.eightpuzzle.MisplacedTilleHeuristicFunction;
 import aima.core.search.framework.Problem;
@@ -69,15 +70,15 @@ public class EightPuzzleApp extends SimpleAgentApp {
 		addSearchAlgorithm("Depth Limited Search (9)", new DepthLimitedSearch(9));
 		addSearchAlgorithm("Iterative Deepening Search", new IterativeDeepeningSearch());
 		addSearchAlgorithm("Greedy Best First Search (MisplacedTileHeursitic)",
-				new GreedyBestFirstSearch(new GraphSearch(), new MisplacedTilleHeuristicFunction()));
+				new GreedyBestFirstSearch(new GraphSearch(), new MisplacedTilleHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }))));
 		addSearchAlgorithm("Greedy Best First Search (ManhattanHeursitic)",
-				new GreedyBestFirstSearch(new GraphSearch(), new ManhattanHeuristicFunction()));
+				new GreedyBestFirstSearch(new GraphSearch(), new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }))));
 		addSearchAlgorithm("AStar Search (MisplacedTileHeursitic)",
-				new AStarSearch(new GraphSearch(), new MisplacedTilleHeuristicFunction()));
+				new AStarSearch(new GraphSearch(), new MisplacedTilleHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }))));
 		addSearchAlgorithm("AStar Search (ManhattanHeursitic)",
-				new AStarSearch(new GraphSearch(), new ManhattanHeuristicFunction()));
+				new AStarSearch(new GraphSearch(), new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }))));
 		addSearchAlgorithm("Simulated Annealing Search",
-				new SimulatedAnnealingSearch(new ManhattanHeuristicFunction()));
+				new SimulatedAnnealingSearch(new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }))));
 	}
 
 	/** Returns an <code>EightPuzzleView</code> instance. */

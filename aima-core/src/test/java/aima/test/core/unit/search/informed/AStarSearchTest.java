@@ -43,9 +43,9 @@ public class AStarSearchTest {
 			Problem problem = new Problem(board,
 					EightPuzzleFunctionFactory.getActionsFunction(),
 					EightPuzzleFunctionFactory.getResultFunction(),
-					new EightPuzzleGoalTest());
+					new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }));
 			Search search = new AStarSearch(new GraphSearch(),
-					new ManhattanHeuristicFunction());
+					new ManhattanHeuristicFunction(new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 })));
 			SearchAgent agent = new SearchAgent(problem, search);
 			Assert.assertEquals(23, agent.getActions().size());
 			Assert.assertEquals("1133", // "926" GraphSearchReduced Frontier

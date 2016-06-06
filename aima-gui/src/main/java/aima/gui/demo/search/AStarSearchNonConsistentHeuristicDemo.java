@@ -1,5 +1,6 @@
 package aima.gui.demo.search;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -21,13 +22,14 @@ import aima.core.search.framework.qsearch.QueueSearch;
 import aima.core.search.framework.qsearch.RectifyExpandedGraphSearch;
 import aima.core.search.framework.qsearch.ReinsertExpandedGraphSearch;
 import aima.core.search.informed.AStarSearch;
+import aima.gui.demo.search.util.TitledPart;
 
 public class AStarSearchNonConsistentHeuristicDemo {
 
 	// Este es el estado inicial
-	static EightPuzzleBoard initialState = new EightPuzzleBoard(new int[]
-	 {2, 1, 3, 8, 0, 4, 7, 6, 5 } // Coste 24
-	//{ 1, 4, 2, 7, 5, 8, 3, 0, 6 } // Coste 9
+	static EightPuzzleBoard initialState = new EightPuzzleBoard(new int[] { 2, 1, 3, 8, 0, 4, 7, 6, 5 } // Coste
+																										// 24
+	// { 1, 4, 2, 7, 5, 8, 3, 0, 6 } // Coste 9
 	//
 	// Otras instancias
 	// { 4, 5, 7, 6, 0, 3, 8, 2, 1} // Coste 20
@@ -47,27 +49,25 @@ public class AStarSearchNonConsistentHeuristicDemo {
 		// encontrar soluciones iguales o mejores
 
 		System.out.println("- ISSUE 75 TESTING -\n\n");
+		
+		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
+		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Misplaced heuristic", new MisplacedTilleHeuristicFunction(goalState)));
+		heuristics.add(new TitledPart<HeuristicFunction>("Manhattan heuristic", new ManhattanHeuristicFunction(goalState)));
+		heuristics.add(new TitledPart<HeuristicFunction>("Non-consistent heuristic", new NoConsistentHeuristicFunction(goalState)));
+		
+		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
+		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new RectifyExpandedGraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[REEXPANDING]", new ReinsertExpandedGraphSearch()));
 
-		// Diferencias con el heuristico Null
-		eightPuzzleAStarForConsistentNullDemo();
-		eightPuzzleAStarRectifyExpandedNullDemo();
-		eightPuzzleAStarReexpandingNullDemo();
+		for (TitledPart<HeuristicFunction> heuristic : heuristics) {
 
-		// Diferencias con el heuristico Misplaced
-		eightPuzzleAStarForConsistentMisplacedDemo();
-		eightPuzzleAStarRectifyExpandedMisplacedDemo();
-		eightPuzzleAStarReexpandingMisplacedDemo();
+			for (TitledPart<QueueSearch> search : searchs) {
 
-		// Diferencias con el heuristico Manhattan
-		eightPuzzleAStarForConsistentManhattanDemo();
-		eightPuzzleAStarRectifyExpandedManhattanDemo();
-		eightPuzzleAStarReexpandingManhattanDemo();
-
-		// Diferencias con el heuristico NoConsistent
-		eightPuzzleAStarForConsistentNoConsistentDemo();
-		eightPuzzleAStarRectifyExpandedNoConsistentDemo();
-		eightPuzzleAStarReexpandingNoConsistentDemo();
-
+				AStarSearch(search.getTitle() + " " + heuristic.getTitle(), search.getPart(), heuristic.getPart());
+			}
+		}
 	}
 
 	private static void AStarSearch(String title, QueueSearch qSearch, HeuristicFunction heuristic) {
@@ -88,83 +88,6 @@ public class AStarSearchNonConsistentHeuristicDemo {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void AStarRectifyExpandedSearch(String title, HeuristicFunction heuristic) {
-		AStarSearch("[RECTIFY EXPANDED] " + title, new RectifyExpandedGraphSearch(), heuristic);
-	}
-
-	private static void AStarReexpandingSearch(String title, HeuristicFunction heuristic) {
-		AStarSearch("[REEXPANDING] " + title, new ReinsertExpandedGraphSearch(), heuristic);
-	}
-
-	private static void AStarConsistentSearch(String title, HeuristicFunction heuristic) {
-		AStarSearch("[CONSISTENT] " + title, new GraphSearch(), heuristic);
-	}
-
-	// --------------------------------------------------------------------------------------------
-	// -- A* Search AUTENTICO con los 4 heurísticos conocidos, h0, h1, h2, h3 --
-	// -
-	// - es la de Russell y Norving modificada para que rectifique nodos ya expandidos
-	// --------------------------------------------------------------------------------------------
-
-	private static void eightPuzzleAStarRectifyExpandedNullDemo() {
-		AStarRectifyExpandedSearch("Null heuristic", new NullHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarRectifyExpandedMisplacedDemo() {
-		AStarRectifyExpandedSearch("Misplaced heuristic", new MisplacedTilleHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarRectifyExpandedManhattanDemo() {
-		AStarRectifyExpandedSearch("Manhattan heuristic", new ManhattanHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarRectifyExpandedNoConsistentDemo() {
-		AStarRectifyExpandedSearch("Non-consistent heuristic", new NoConsistentHeuristicFunction());
-	}
-
-	// --------------------------------------------------------------------------------------------
-	// -- A* Search AUTENTICO con los 4 heurísticos conocidos, h0, h1, h2, h3 --
-	// -
-	// - es la de Russell y Norving modificada para que reinserte nodos ya expandidos en ABIERTA -
-	// --------------------------------------------------------------------------------------------
-
-	private static void eightPuzzleAStarReexpandingNullDemo() {
-		AStarReexpandingSearch("Null heuristic", new NullHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarReexpandingMisplacedDemo() {
-		AStarReexpandingSearch("Misplaced heuristic", new MisplacedTilleHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarReexpandingManhattanDemo() {
-		AStarReexpandingSearch("Manhattan heuristic", new ManhattanHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarReexpandingNoConsistentDemo() {
-		AStarReexpandingSearch("Non-consistent heuristic", new NoConsistentHeuristicFunction());
-	}
-
-	// ---------------------------------------------------------
-	// -- A* Search, version de Russell y Norvig
-	// que es admisible solo para heuristicos consistentes --
-	// ---------------------------------------------------------
-
-	private static void eightPuzzleAStarForConsistentNullDemo() {
-		AStarConsistentSearch("Null heuristic", new NullHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarForConsistentMisplacedDemo() {
-		AStarConsistentSearch("Misplaced heuristic", new MisplacedTilleHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarForConsistentManhattanDemo() {
-		AStarConsistentSearch("Manhattan heuristic", new ManhattanHeuristicFunction());
-	}
-
-	private static void eightPuzzleAStarForConsistentNoConsistentDemo() {
-		AStarConsistentSearch("Non-Consistent heuristic", new NoConsistentHeuristicFunction());
 	}
 
 	// -- Métodos auxiliares para mostrar resultados --

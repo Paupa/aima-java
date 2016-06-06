@@ -8,50 +8,34 @@ import aima.core.util.datastructure.XYLocation;
  * 
  */
 public class ManhattanHeuristicFunction implements HeuristicFunction {
+	
+	private EightPuzzleGoalTest goal;
+
+	public ManhattanHeuristicFunction(EightPuzzleGoalTest goal) {
+		this.goal = goal;
+	}
 
 	public double h(Object state) {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
 		int retVal = 0;
-		for (int i = 1; i < 9; i++) {
+		for (int i = 1; i <= 8; i++) {
 			XYLocation loc = board.getLocationOf(i);
-			retVal += evaluateManhattanDistanceOf(i, loc);
+			XYLocation locGS = goal.getLocationOf(i);
+			retVal += evaluateManhattanDistanceOf(loc, locGS);
 		}
 		return retVal;
 
 	}
-
-	public int evaluateManhattanDistanceOf(int i, XYLocation loc) {
-		int retVal = -1;
+	
+	public int evaluateManhattanDistanceOf(XYLocation loc, XYLocation locGS) {
+		int retVal = 0;
 		int xpos = loc.getXCoOrdinate();
 		int ypos = loc.getYCoOrdinate();
-		switch (i) {
-
-		case 1:
-			retVal = Math.abs(xpos - 0) + Math.abs(ypos - 1);
-			break;
-		case 2:
-			retVal = Math.abs(xpos - 0) + Math.abs(ypos - 2);
-			break;
-		case 3:
-			retVal = Math.abs(xpos - 1) + Math.abs(ypos - 0);
-			break;
-		case 4:
-			retVal = Math.abs(xpos - 1) + Math.abs(ypos - 1);
-			break;
-		case 5:
-			retVal = Math.abs(xpos - 1) + Math.abs(ypos - 2);
-			break;
-		case 6:
-			retVal = Math.abs(xpos - 2) + Math.abs(ypos - 0);
-			break;
-		case 7:
-			retVal = Math.abs(xpos - 2) + Math.abs(ypos - 1);
-			break;
-		case 8:
-			retVal = Math.abs(xpos - 2) + Math.abs(ypos - 2);
-			break;
-
-		}
+		int xposGS = locGS.getXCoOrdinate();
+		int yposGS = locGS.getYCoOrdinate();
+		
+		retVal = Math.abs(xpos - xposGS) + Math.abs(ypos - yposGS);
+		
 		return retVal;
 	}
 }

@@ -10,15 +10,19 @@ import aima.core.util.datastructure.XYLocation;
  */
 public class NoConsistentHeuristicFunction implements HeuristicFunction {
 
-	private static EightPuzzleGoalTest goalState = new EightPuzzleGoalTest();
+	private EightPuzzleGoalTest goal;
 	// Se calcula la estimacion con respecto a goalState
+	
+	public NoConsistentHeuristicFunction(EightPuzzleGoalTest goal) {
+		this.goal = goal;
+	}
 	
 	public double h(Object state) {
 		EightPuzzleBoard board = (EightPuzzleBoard) state;
 		int retVal = 0;
 		for (int i = 1; i < 9; i++) {
 			XYLocation loc = board.getLocationOf(i);
-			XYLocation locGS = goalState.getGoal().getLocationOf(i);
+			XYLocation locGS = goal.getLocationOf(i);
 			retVal += evaluateManhattanDistanceOf(loc, locGS);
 		}
 		return retVal;

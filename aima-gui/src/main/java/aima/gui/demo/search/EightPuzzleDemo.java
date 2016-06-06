@@ -34,6 +34,8 @@ public class EightPuzzleDemo {
 
 	static EightPuzzleBoard extreme = new EightPuzzleBoard(new int[] { 0, 8, 7,
 			6, 5, 4, 3, 2, 1 });
+	
+	static EightPuzzleGoalTest goal = new EightPuzzleGoalTest(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 
 	public static void main(String[] args) {
 		eightPuzzleDLSDemo();
@@ -50,7 +52,7 @@ public class EightPuzzleDemo {
 		try {
 			Problem problem = new Problem(boardWithThreeMoveSolution, EightPuzzleFunctionFactory
 					.getActionsFunction(), EightPuzzleFunctionFactory
-					.getResultFunction(), new EightPuzzleGoalTest());
+					.getResultFunction(), goal);
 			Search search = new DepthLimitedSearch(9);
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
@@ -66,7 +68,7 @@ public class EightPuzzleDemo {
 		try {
 			Problem problem = new Problem(random1, EightPuzzleFunctionFactory
 					.getActionsFunction(), EightPuzzleFunctionFactory
-					.getResultFunction(), new EightPuzzleGoalTest());
+					.getResultFunction(), goal);
 			Search search = new IterativeDeepeningSearch();
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
@@ -84,9 +86,9 @@ public class EightPuzzleDemo {
 			Problem problem = new Problem(boardWithThreeMoveSolution,
 					EightPuzzleFunctionFactory.getActionsFunction(),
 					EightPuzzleFunctionFactory.getResultFunction(),
-					new EightPuzzleGoalTest());
+					goal);
 			Search search = new GreedyBestFirstSearch(new GraphSearch(),
-					new MisplacedTilleHeuristicFunction());
+					new MisplacedTilleHeuristicFunction(goal));
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
 			printInstrumentation(agent.getInstrumentation());
@@ -103,9 +105,9 @@ public class EightPuzzleDemo {
 			Problem problem = new Problem(boardWithThreeMoveSolution,
 					EightPuzzleFunctionFactory.getActionsFunction(),
 					EightPuzzleFunctionFactory.getResultFunction(),
-					new EightPuzzleGoalTest());
+					goal);
 			Search search = new GreedyBestFirstSearch(new GraphSearch(),
-					new ManhattanHeuristicFunction());
+					new ManhattanHeuristicFunction(goal));
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
 			printInstrumentation(agent.getInstrumentation());
@@ -121,9 +123,9 @@ public class EightPuzzleDemo {
 		try {
 			Problem problem = new Problem(random1, EightPuzzleFunctionFactory
 					.getActionsFunction(), EightPuzzleFunctionFactory
-					.getResultFunction(), new EightPuzzleGoalTest());
+					.getResultFunction(), goal);
 			Search search = new AStarSearch(new GraphSearch(),
-					new MisplacedTilleHeuristicFunction());
+					new MisplacedTilleHeuristicFunction(goal));
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
 			printInstrumentation(agent.getInstrumentation());
@@ -138,9 +140,9 @@ public class EightPuzzleDemo {
 		try {
 			Problem problem = new Problem(random1, EightPuzzleFunctionFactory
 					.getActionsFunction(), EightPuzzleFunctionFactory
-					.getResultFunction(), new EightPuzzleGoalTest());
+					.getResultFunction(), goal);
 			SimulatedAnnealingSearch search = new SimulatedAnnealingSearch(
-					new ManhattanHeuristicFunction());
+					new ManhattanHeuristicFunction(goal));
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
 			System.out.println("Search Outcome=" + search.getOutcome());
@@ -157,9 +159,9 @@ public class EightPuzzleDemo {
 		try {
 			Problem problem = new Problem(random1, EightPuzzleFunctionFactory
 					.getActionsFunction(), EightPuzzleFunctionFactory
-					.getResultFunction(), new EightPuzzleGoalTest());
+					.getResultFunction(), goal);
 			Search search = new AStarSearch(new GraphSearch(),
-					new ManhattanHeuristicFunction());
+					new ManhattanHeuristicFunction(goal));
 			SearchAgent agent = new SearchAgent(problem, search);
 			printActions(agent.getActions());
 			printInstrumentation(agent.getInstrumentation());
