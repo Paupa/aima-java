@@ -65,11 +65,13 @@ public class GraphSearchReducedFrontier extends QueueSearch {
 		// initialize the explored set to be empty
 		if (frontier instanceof PriorityQueue<?>)
 			nodeComparator = (Comparator<Node>) ((PriorityQueue<?>) frontier).comparator();
-		else //TODO ADDED: If search() is called after a 2nd time it may use a nodeComparator that doesn't suit the new problem and frontier.
-				//Example: First time the frontier is a PriorityQueue, so it's nodeComparator is saved. Second time the frointier is not a PriorityQueue
+		else // ADDED: If search() is called after a 2nd time it may use a
+				// nodeComparator that doesn't suit the new problem and frontier.
+				// Example: First time the frontier is a PriorityQueue, so it's
+				// nodeComparator is saved. Second time the frontier is not a PriorityQueue
 				// but the nodeComparator isn't reseted, so it may behave wrong.
 			nodeComparator = null;
-		
+
 		explored.clear();
 		frontierState.clear();
 		return super.search(problem, frontier);
