@@ -41,8 +41,8 @@ public class AStarSearchNonConsistentHeuristicDemo {
 	// {3, 8, 7, 4, 0, 6, 5, 2, 1}
 	// {5, 6, 3, 4, 0, 2, 7, 8, 1}
 	// Instancias que no se resuelven con h3 y la version de A* que no rectifica
-	 { 6, 3, 2, 5, 7, 8, 0, 4, 1 } // 24
-	// { 6, 3, 2, 5, 8, 1, 4, 0, 7 } // 23
+	// { 6, 3, 2, 5, 7, 8, 0, 4, 1 } // 24
+	 { 6, 3, 2, 5, 8, 1, 4, 0, 7 } // 23
 	// { 3, 5, 6, 4, 2, 7, 0, 8, 1 } // 24
 	// { 7, 0, 2, 3, 6, 1, 5, 8, 4 } // 21
 	);
