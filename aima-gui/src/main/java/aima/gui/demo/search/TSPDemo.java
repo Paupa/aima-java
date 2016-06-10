@@ -12,10 +12,7 @@ import aima.core.search.framework.HeuristicFunction;
 import aima.core.search.framework.Problem;
 import aima.core.search.framework.Search;
 import aima.core.search.framework.SearchAgent;
-import aima.core.search.framework.qsearch.GraphSearch;
-import aima.core.search.framework.qsearch.QueueSearch;
-import aima.core.search.framework.qsearch.GraphSearchRectifyExpanded;
-import aima.core.search.framework.qsearch.GraphSearchReinsertExpanded;
+import aima.core.search.framework.qsearch.*;
 import aima.core.search.informed.AStarSearch;
 import aima.gui.demo.search.util.TitledPart;
 
@@ -32,15 +29,15 @@ public class TSPDemo {
 		
 		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
 		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs heuristic", new MinimumCostArcHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining arcs heuristic", new SumArcsHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs heuristic", new MinimumCostArcHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining arcs heuristic", new SumArcsHeuristicFunction()));
 		heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
 		
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
-		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
-		searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new GraphSearchReinsertExpanded()));
+		//searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
+		//searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new GraphSearchReinsertExpanded()));
 		
 		for(TitledPart<TravelingSalesmanState> problem : problems) {
 			

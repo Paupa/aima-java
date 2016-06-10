@@ -14,14 +14,17 @@ public abstract class AbstractTSPHeuristicFunction implements HeuristicFunction{
 	public List<City> getCitiesForRoutes(TravelingSalesmanState state) {
 		List<City> citiesForRoutes = new ArrayList<>();
 		
-		if(!state.getVisited().isEmpty())
-			citiesForRoutes.add(state.getLastVisited());
+		City lastVisited = state.getLastVisited();
+		
+		if(lastVisited != null)
+			citiesForRoutes.add(lastVisited);
 		
 		for(City city : state.getNotVisited())
 			citiesForRoutes.add(city);
 		
-		if(state.getNeedToComeBack() && !state.getVisited().isEmpty())
-			citiesForRoutes.add(state.getVisited().get(0));
+		City starterCity = state.getStarterCity();
+		if(state.getNeedToComeBack() && starterCity != null)
+			citiesForRoutes.add(starterCity);
 		
 		return citiesForRoutes;
 	}
