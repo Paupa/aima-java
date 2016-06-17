@@ -33,6 +33,7 @@ public class TSPDemo {
 		//heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
 		//heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining arcs heuristic", new SumArcsHeuristicFunction()));
 		heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm heuristic", new HungarianAlgorithmHeuristicFunction()));
 		
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
