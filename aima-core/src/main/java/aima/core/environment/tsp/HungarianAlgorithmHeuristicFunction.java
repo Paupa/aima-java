@@ -114,8 +114,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 		while (linesUsedToCover != matrixSize) {
 
 			// Now we cover rows or columns to try to cover every zero in the
-			// matrix
-			// with the fewer lines possible
+			// matrix with the fewer lines possible
 			boolean[] rowCovered = new boolean[matrixSize];
 			boolean[] columnCovered = new boolean[matrixSize];
 
@@ -125,8 +124,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 					// If the value at (i, j) is zero and hasn't been covered...
 					if (matrix[i][j] != null && matrix[i][j] == 0 && !rowCovered[i] && !columnCovered[j]) {
 						// We check the rest of the values of the column,
-						// starting
-						// with the inmediate next
+						// starting with the inmediate next
 						for (int k = i + 1; k < matrixSize; k++) {
 
 							if (matrix[k][j] != null && matrix[k][j] == 0) {
@@ -137,9 +135,6 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 						// If the column hasn't been covered we cover the row to
 						// cover this zero
-						// We don't need to check if there are more zeros in
-						// this
-						// row.
 						if (!columnCovered[j])
 							rowCovered[i] = true;
 					}
@@ -148,8 +143,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 			// Now we check how many lines we have used to cover the zeros
 			// This way we now if we have solved the problem already or if we
-			// need
-			// to manipulate more the matrix
+			// need to manipulate more the matrix
 			linesUsedToCover = 0;
 			
 			for (int k = 0; k < matrixSize; k++) {
@@ -216,11 +210,34 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 		}
 
-		//If we are out of the while loop it means the lines equal the size of the matrix,
-		//and so we have found a solution
+		// If we are out of the while loop it means the lines equal the size of 
+		// the matrix, and so we have found a solution
+		
+		List<XYLocation> result = findSolution();
+		
+		// Now that we have the positions of the best assignments we get 
+		// the cost of the solution 
+		int totalCost = 0;
+		
+		for(XYLocation location : result) {
+			totalCost += toVisit.get(location.getXCoOrdinate()).getCost(toVisit.get(location.getYCoOrdinate() + 1));
+		}
+		
+		return totalCost;
+		
+	}
+	
+	/**
+	 * This method tries to find a solution based on the attribute matrix
+	 * 
+	 * @return It returns a list with the locations of the zeros selected 
+	 * 		for the solution. If a solution can't be found, it returns null.
+	 */
+	private List<XYLocation> findSolution() {
 		
 		int[] zerosOnRow = new int[matrixSize];
 		
+		// We fill the array with how many zeros there are in each row
 		for(int i = 0; i < matrixSize; i++) {
 			int zeros = 0;
 			for(int j = 0; j < matrixSize; j++) {
@@ -233,19 +250,24 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 		
 		boolean[] columnsUsed = new boolean[matrixSize];
 		
-		List<XYLocation> result = findSolution(zerosOnRow, columnsUsed);
-		
-		int totalCost = 0;
-		
-		for(XYLocation location : result) {
-			totalCost += toVisit.get(location.getXCoOrdinate()).getCost(toVisit.get(location.getYCoOrdinate() + 1));
-		}
-		
-		return totalCost;
-		
+		return findSolution(zerosOnRow, columnsUsed);
 	}
 	
+	/**
+	 * This method finds the solution through a backtracking algorithm.
+	 * It chooses the row with fewer zeros (but more than zero) and
+	 * tries to find a solution with each zero of the row.
+	 * 
+	 * @param zerosOnRow This array saves the count of how many selectionable
+	 * 		zeros there are in each row
+	 * @param columnsUsed This array saves which columns have been used to find a solution
+	 * @return It returns a list with the locations of the zeros selected 
+	 * 		for the solution. If there can't be found a solution with the arguments
+	 * 		passed, it returns null.
+	 */
 	private List<XYLocation> findSolution(int[] zerosOnRow, boolean[] columnsUsed) {
+		
+		// First we find which row has less zeros, ignoring the ones without zeros
 		int row = -1;
 		int minZeros = Integer.MAX_VALUE;
 		
@@ -257,30 +279,47 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 			}
 		}
 		
+		// If all the rows haven't any zeros it means that we already found a solution
+		// or that there can't be found any solution in the current state
 		if(row == -1) {
+			
+			// If we find there's some column that isn't used it means that 
+			// there's no solution with the current state
 			for(int j = 0; j < matrixSize; j++)
 				if(!columnsUsed[j])
 					return null;
 			
+			//If all the columns has been used it means the current state is a solution
 			return new ArrayList<XYLocation>();
 		}
 		
+		// We search the zeros in the row that can be used in the current state
+		// to find a solution
 		for(int j = 0; j < matrixSize; j++) {
 			if(matrix[row][j] != null && matrix[row][j] == 0 && !columnsUsed[j]) {
-				//We try to use this zero
+				// We try to use this zero
 				int[] copyZerosOnRow = zerosOnRow.clone();
 				boolean[] copyColumnsUsed = columnsUsed.clone();
 				
+				// We mark the current column has used
 				copyColumnsUsed[j] = true;
 				
+				// We put the count of this row at 0, because it has been used
+				copyZerosOnRow[row] = 0;
+				
+				// We decrement the count of zeros of each row that has a zero 
+				// on the column selected
 				for(int i = 0; i < matrixSize; i++) {
 					if(copyZerosOnRow[i] > 0 && matrix[i][j] != null && matrix[i][j] == 0)
 						copyZerosOnRow[i]--;
 				}
 				
+				//We try to find the solution through backtracking
 				List<XYLocation> result = findSolution(copyZerosOnRow, copyColumnsUsed);
 				
+				//If there is a solution with the current state
 				if(result != null) {
+					//We add the location we chose to the result
 					result.add(new XYLocation(row, j));
 					return result;
 				}
@@ -288,6 +327,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 			}
 		}
 		
+		//If there can't be found any solution in the current state, we return null
 		return null;
 	}
 
