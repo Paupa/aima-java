@@ -11,6 +11,9 @@ import aima.core.environment.tsp.City;
 import aima.core.environment.tsp.HungarianAlgorithmHeuristicFunction;
 import aima.core.environment.tsp.TravelingSalesmanState;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class HungarianAlgorithmHeuristicFunctionTest {
 
 	@Test
@@ -39,7 +42,6 @@ public class HungarianAlgorithmHeuristicFunctionTest {
 		assertEquals((int) 80, (int) c.getCost(b));
 		assertEquals((int) 98, (int) c.getCost(a));
 		
-		//double cost = new HungarianAlgorithmHeuristicFunction().h(state);
 		assertEquals(190, new HungarianAlgorithmHeuristicFunction().h(state), 0.1);
 		
 	}

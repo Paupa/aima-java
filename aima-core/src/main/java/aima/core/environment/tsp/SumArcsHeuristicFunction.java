@@ -2,6 +2,9 @@ package aima.core.environment.tsp;
 
 import java.util.List;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class SumArcsHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override

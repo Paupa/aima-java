@@ -4,6 +4,9 @@ import java.util.List;
 
 import aima.core.util.datastructure.PriorityQueue;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class SumMinimumArcEachCityHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override

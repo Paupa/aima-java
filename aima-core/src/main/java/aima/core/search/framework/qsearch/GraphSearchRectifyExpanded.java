@@ -90,6 +90,12 @@ public class GraphSearchRectifyExpanded extends QueueSearch {
 		return frontier.isEmpty();
 	}
 
+	/**
+	 * Recalculates the node's children path cost recursively.
+	 * Forces the frontier to sort itself if the node is in it.
+	 * 
+	 * @param parent The node whose children's pathcost we want to recalculate
+	 */
 	private void recalculateChildrensPathCost(NodeRectifiable parent) {
 		
 		Iterator<NodeRectifiable> children = parent.getChildrenIterator();

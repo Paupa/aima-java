@@ -3,6 +3,9 @@ package aima.core.environment.tsp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Paupa
+ */
 public class SpanningTreeHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override

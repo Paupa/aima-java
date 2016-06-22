@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class TravelingSalesmanState {
 	
 	private boolean needToComeBack = true;
@@ -12,7 +15,6 @@ public class TravelingSalesmanState {
 	
 	private City lastVisited = null;
 	
-	//Guardar ciudades por visitar
 	private List<City> notVisited = new ArrayList<>();
 	
 	public TravelingSalesmanState(List<City> cities) {
@@ -48,10 +50,15 @@ public class TravelingSalesmanState {
 	}
 	
 	public City getLastVisited() {
-		
 		return lastVisited;
 	}
 
+	/**
+	 * When called, the city passed is removed from the list of cities not visited
+	 * and it's saved as the last visited. It's saved as the starter city if there's no one.
+	 * 
+	 * @param city The city we want to mark as visited.
+	 */
 	public void visit(City city) {
 		notVisited.remove(city);
 		lastVisited = city;

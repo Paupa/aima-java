@@ -9,6 +9,9 @@ import aima.core.search.framework.Node;
 import aima.core.search.framework.Problem;
 import aima.core.util.datastructure.Queue;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class GraphSearchReinsertExpanded extends QueueSearch {
 	
 	public static final String METRIC_NODES_REINSERTED = "nodesReinserted";

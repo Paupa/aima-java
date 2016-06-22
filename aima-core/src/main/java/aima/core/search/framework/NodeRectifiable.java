@@ -6,6 +6,11 @@ import java.util.Set;
 
 import aima.core.agent.Action;
 
+/**
+ * TODO
+ * 
+ * @author Paula Díaz Puertas
+ */
 public class NodeRectifiable extends Node {
 	
 	private double stepCost;
@@ -21,6 +26,14 @@ public class NodeRectifiable extends Node {
 		this.stepCost = stepCost;
 	}
 	
+	/**
+	 * Rectifies this node with the data of the node passed, meaning it changes
+	 * its parent, action, pathCost and stepCost. It does not recalculate the
+	 * path cost of its children.
+	 * 
+	 * @param node The node with the data we want to use to rectify this one.
+	 * 		Its state must be equal to this one.
+	 */
 	public void rectify(Node node) {
 		
 		if(!node.getState().equals(getState()))

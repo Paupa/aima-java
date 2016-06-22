@@ -3,6 +3,9 @@ package aima.core.environment.tsp;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class City {
 	
 	private String id;
@@ -17,10 +20,25 @@ public class City {
 		return id;
 	}
 	
+	/**
+	 * Saves the cost passed, so going from this city to the city passed 
+	 * costs what is passed.
+	 * 
+	 * @param city The city we want to be able to travel from this.
+	 * @param cost Cost of going from this city to the city passed.
+	 */
 	public void addCost(City city, Integer cost) {
 		canVisit.put(city, cost);
 	}
 	
+	/**
+	 * Saves the cost as a symmetric one. This means that going from this city 
+	 * to the city passed costs the cost, and so does going from the city passed
+	 * to this city.
+	 * 
+	 * @param city The city we want to be able to go and come
+	 * @param cost The cost of traveling to and from the city
+	 */
 	public void addSymmetricCost(City city, Integer cost) {
 		addCost(city, cost);
 		city.addCost(this, cost);

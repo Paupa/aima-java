@@ -2,6 +2,10 @@ package aima.core.environment.tsp;
 
 import java.util.List;
 
+/**
+ * @author Paula Díaz Puertas
+ *
+ */
 public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override

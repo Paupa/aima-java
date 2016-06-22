@@ -2,6 +2,9 @@ package aima.core.environment.tsp;
 
 import aima.core.agent.impl.DynamicAction;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class TravelingSalesmanAction extends DynamicAction {
 	
 	public static final String VISIT = "visit";

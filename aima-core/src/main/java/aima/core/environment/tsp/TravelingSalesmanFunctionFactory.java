@@ -8,6 +8,9 @@ import aima.core.search.framework.ActionsFunction;
 import aima.core.search.framework.ResultFunction;
 import aima.core.search.framework.StepCostFunction;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class TravelingSalesmanFunctionFactory {
 	
 	private static ActionsFunction _actionsFunction = null;

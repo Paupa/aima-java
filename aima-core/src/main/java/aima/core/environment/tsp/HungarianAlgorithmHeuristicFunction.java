@@ -5,6 +5,9 @@ import java.util.List;
 
 import aima.core.util.datastructure.XYLocation;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFunction {
 	
 	private int matrixSize = 0;
