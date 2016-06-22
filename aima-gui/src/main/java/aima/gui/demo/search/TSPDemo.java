@@ -1,19 +1,25 @@
 package aima.gui.demo.search;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import aima.core.agent.Action;
 import aima.core.environment.eightpuzzle.NullHeuristicFunction;
 import aima.core.environment.tsp.*;
+import aima.core.search.framework.GoalTest;
 import aima.core.search.framework.HeuristicFunction;
 import aima.core.search.framework.Problem;
 import aima.core.search.framework.Search;
 import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.*;
 import aima.core.search.informed.AStarSearch;
+import aima.core.search.local.FitnessFunction;
+import aima.core.search.local.GeneticAlgorithm;
+import aima.core.search.local.Individual;
 import aima.gui.demo.search.util.TitledPart;
 
 public class TSPDemo {
@@ -50,6 +56,8 @@ public class TSPDemo {
 							problem.getPart(), search.getPart(), heuristic.getPart());
 				}
 			}
+			
+			geneticAlgorithmSearch(problem.getTitle(), problem.getPart(), 1000);
 		}
 
 	}
@@ -183,6 +191,62 @@ public class TSPDemo {
 			printInstrumentation(agent.getInstrumentation());
 
 			System.out.println("\n");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void geneticAlgorithmSearch(String title, TravelingSalesmanState problem, long maxTimeMilliseconds) {
+		System.out.println("[GENETIC ALGORITHM] " + title + "\n");
+		try {
+			FitnessFunction<City> fitnessFunction = TSPGeneticAlgorithmUtil.getFitnessFunction();
+			GoalTest goalTest = TSPGeneticAlgorithmUtil.getGoalTest();
+			
+			List<City> cities = new ArrayList<>();
+			
+			if(problem.getStarterCity() != null)
+				cities.add(problem.getStarterCity());
+			
+			cities.addAll(problem.getNotVisited());
+			
+			// Generate an initial population
+			Set<Individual<City>> population = new HashSet<>();
+			for (int i = 0; i < 50; i++) {
+				population.add(TSPGeneticAlgorithmUtil.generateRandomIndividual(cities));
+			}
+			
+			Set<City> finiteAlphabet = new HashSet<>();
+			
+			finiteAlphabet.addAll(cities);
+
+			GeneticAlgorithm<City> ga = new GeneticAlgorithm<>(cities.size() + 1,
+					finiteAlphabet, 0.15);
+
+			// Run for a set amount of time
+			Individual<City> bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest, maxTimeMilliseconds);
+			
+			List<City> representation = bestIndividual.getRepresentation();
+			
+			String stringRepresentation = representation.get(0).toString();
+			
+			for(int i = 1; i < representation.size(); i++)
+				stringRepresentation += " -> " + representation.get(i);
+			
+			String stringMaxTime = "";
+			
+			if(maxTimeMilliseconds > 0)
+				stringMaxTime = "Max Time (" + maxTimeMilliseconds + ") ";
+
+			System.out.println(stringMaxTime + "Best Individual=\n"
+					+ stringRepresentation);
+			System.out.println("Fitness         = " + fitnessFunction.getValue(bestIndividual));
+			System.out.println("Is Goal         = " + goalTest.isGoalState(bestIndividual));
+			System.out.println("Population Size = " + ga.getPopulationSize());
+			System.out.println("Itertions       = " + ga.getIterations());
+			System.out.println("Took            = " + ga.getTimeInMilliseconds() + "ms.");
+			
+			System.out.println("\n");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
