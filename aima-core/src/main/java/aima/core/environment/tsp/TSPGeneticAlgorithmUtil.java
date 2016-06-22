@@ -46,8 +46,6 @@ public class TSPGeneticAlgorithmUtil {
 			individualRepresentation.add(city);
 			copyCities.remove(city);
 		}
-		
-		individualRepresentation.add(individualRepresentation.get(0));
 
 		Individual<City> individual = new Individual<>(individualRepresentation);
 		
@@ -64,11 +62,18 @@ public class TSPGeneticAlgorithmUtil {
 			for(int i = 0; i < representation.size() - 1; i++) {
 				Integer cost = representation.get(i).getCost(representation.get(i + 1));
 				
-				if(cost != null)
-					fitness += cost;
+				if(cost == null)
+					return Double.MAX_VALUE;
 				
-				//TODO Should I do something if the cost is null?
+				fitness += cost;
 			}
+			
+			Integer cost = representation.get(representation.size() - 1).getCost(representation.get(0));
+			
+			if(cost == null)
+				return Double.MAX_VALUE;
+			
+			fitness += cost;
 
 			return 1 / fitness;
 		}
@@ -81,13 +86,9 @@ public class TSPGeneticAlgorithmUtil {
 			
 			List<City> representation = ((Individual<City>) state).getRepresentation();
 			
-			// If the last city doesn't equals to the first one, it's not a goal state
-			if(!representation.get(0).equals(representation.get(representation.size() - 1)))
-				return false;
-			
 			Set<City> middleCities = new HashSet<>();
 
-			for(int i = 1; i < representation.size() - 1; i++) {
+			for(int i = 0; i < representation.size(); i++) {
 				if(!middleCities.add(representation.get(i)))
 					return false;
 			}
@@ -96,6 +97,9 @@ public class TSPGeneticAlgorithmUtil {
 				if(representation.get(i).getCost(representation.get(i + 1)) == null)
 					return false;
 			}
+			
+			if(representation.get(representation.size() - 1).getCost(representation.get(0)) == null)
+				return false;
 			
 			return true;
 		}

@@ -57,7 +57,7 @@ public class TSPDemo {
 				}
 			}
 			
-			geneticAlgorithmSearch(problem.getTitle(), problem.getPart(), 1000);
+			geneticAlgorithmSearch(problem.getTitle(), problem.getPart(), 0);
 		}
 
 	}
@@ -219,7 +219,7 @@ public class TSPDemo {
 			
 			finiteAlphabet.addAll(cities);
 
-			GeneticAlgorithm<City> ga = new GeneticAlgorithm<>(cities.size() + 1,
+			GeneticAlgorithm<City> ga = new GeneticAlgorithm<>(cities.size(),
 					finiteAlphabet, 0.15);
 
 			// Run for a set amount of time
@@ -236,10 +236,13 @@ public class TSPDemo {
 			
 			if(maxTimeMilliseconds > 0)
 				stringMaxTime = "Max Time (" + maxTimeMilliseconds + ") ";
+			
+			double fitness = fitnessFunction.getValue(bestIndividual);
 
 			System.out.println(stringMaxTime + "Best Individual=\n"
 					+ stringRepresentation);
-			System.out.println("Fitness         = " + fitnessFunction.getValue(bestIndividual));
+			System.out.println("Fitness         = " + fitness);
+			System.out.println("Cost         	= " + 1 / fitness);
 			System.out.println("Is Goal         = " + goalTest.isGoalState(bestIndividual));
 			System.out.println("Population Size = " + ga.getPopulationSize());
 			System.out.println("Itertions       = " + ga.getIterations());
