@@ -63,7 +63,7 @@ public class TSPGeneticAlgorithmUtil {
 				Integer cost = representation.get(i).getCost(representation.get(i + 1));
 				
 				if(cost == null)
-					return Double.MAX_VALUE;
+					return 0;
 				
 				fitness += cost;
 			}
@@ -71,7 +71,7 @@ public class TSPGeneticAlgorithmUtil {
 			Integer cost = representation.get(representation.size() - 1).getCost(representation.get(0));
 			
 			if(cost == null)
-				return Double.MAX_VALUE;
+				return 0;
 			
 			fitness += cost;
 

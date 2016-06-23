@@ -57,7 +57,7 @@ public class TSPDemo {
 				}
 			}
 			
-			geneticAlgorithmSearch(problem.getTitle(), problem.getPart(), 0);
+			geneticAlgorithmSearch(problem.getTitle(), problem.getPart(), 2000);
 		}
 
 	}
