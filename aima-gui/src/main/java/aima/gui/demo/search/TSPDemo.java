@@ -34,12 +34,12 @@ public class TSPDemo {
 		problems.add(new TitledPart<TravelingSalesmanState>("Problem 3", instantiateProblem3()));
 		
 		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
-		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
 		//heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs heuristic", new MinimumCostArcHeuristicFunction()));
 		//heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
 		//heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining arcs heuristic", new SumArcsHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
-		heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm heuristic", new HungarianAlgorithmHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm heuristic", new HungarianAlgorithmHeuristicFunction()));
 		
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
 		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));

@@ -55,27 +55,46 @@ public class TSPGeneticAlgorithmUtil {
 	public static class TSPFitnessFunction implements FitnessFunction<City> {
 
 		public double getValue(Individual<City> individual) {
-			double fitness = 0;
+			
+			double totalCost = 0;
 			
 			List<City> representation = individual.getRepresentation();
 			
-			for(int i = 0; i < representation.size() - 1; i++) {
-				Integer cost = representation.get(i).getCost(representation.get(i + 1));
-				
-				if(cost == null)
-					return 0;
-				
-				fitness += cost;
-			}
-			
-			Integer cost = representation.get(representation.size() - 1).getCost(representation.get(0));
-			
-			if(cost == null)
+			if(TSPGeneticAlgorithmUtil.areAnyRepeatedCities(representation))
 				return 0;
 			
-			fitness += cost;
+			int maxCost = findMaxCost(representation);
+			
+			for(int i = 0; i < representation.size() - 1; i++)
+				totalCost += getCostForFitness(representation.get(i), representation.get(i + 1), maxCost);
+			
+			totalCost += getCostForFitness(representation.get(representation.size() - 1), representation.get(0), maxCost);
 
-			return 1 / fitness;
+			return 1 / totalCost;
+		}
+		
+		private Integer findMaxCost(List<City> cities) {
+			Integer maxCost = null;
+			
+			for(City from : cities) {
+				for(City to : cities) {
+					
+					Integer cost = from.getCost(to);
+					if(cost != null && (maxCost == null || cost > maxCost))
+						maxCost = cost;
+				}
+			}
+			
+			return maxCost;
+		}
+		
+		private int getCostForFitness(City from, City to, int maxCost) {
+			Integer cost = from.getCost(to);
+			
+			if(cost == null)
+				return maxCost;
+			
+			return cost;
 		}
 	}
 
@@ -86,12 +105,8 @@ public class TSPGeneticAlgorithmUtil {
 			
 			List<City> representation = ((Individual<City>) state).getRepresentation();
 			
-			Set<City> middleCities = new HashSet<>();
-
-			for(int i = 0; i < representation.size(); i++) {
-				if(!middleCities.add(representation.get(i)))
-					return false;
-			}
+			if(TSPGeneticAlgorithmUtil.areAnyRepeatedCities(representation))
+				return false;
 			
 			for(int i = 0; i < representation.size() - 1; i++) {
 				if(representation.get(i).getCost(representation.get(i + 1)) == null)
@@ -103,6 +118,18 @@ public class TSPGeneticAlgorithmUtil {
 			
 			return true;
 		}
+	}
+	
+	public static boolean areAnyRepeatedCities(List<City> cities) {
+		
+		Set<City> middleCities = new HashSet<>();
+
+		for(int i = 0; i < cities.size(); i++) {
+			if(!middleCities.add(cities.get(i)))
+				return true;
+		}
+		
+		return false;
 	}
 
 }
