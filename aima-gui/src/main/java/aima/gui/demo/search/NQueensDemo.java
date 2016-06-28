@@ -170,7 +170,8 @@ public class NQueensDemo {
 					NQueensGenAlgoUtil.getFiniteAlphabetForBoardOfSize(boardSize), 0.15);
 
 			// Run for a set amount of time
-			Individual<Integer> bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest, 1000L);
+			ga.setMaxTimeMilliseconds(1000L);
+			Individual<Integer> bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest);
 
 			System.out.println("Max Time (1 second) Best Individual=\n"
 					+ NQueensGenAlgoUtil.getBoardForIndividual(bestIndividual));
@@ -183,7 +184,8 @@ public class NQueensDemo {
 			System.out.println("Took            = " + ga.getTimeInMilliseconds() + "ms.");
 
 			// Run till goal is achieved
-			bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest, 0L);
+			ga.setMaxTimeMilliseconds(0L);
+			bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest);
 
 			System.out.println("");
 			System.out
