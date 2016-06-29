@@ -13,6 +13,9 @@ public class City {
 	private Map<City, Integer> canVisit = new HashMap<>();
 	
 	public City(String id) {
+		
+		assert(id != null);
+		
 		this.id = id;
 	}
 

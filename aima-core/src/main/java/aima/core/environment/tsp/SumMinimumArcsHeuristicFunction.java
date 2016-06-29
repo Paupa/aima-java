@@ -7,7 +7,7 @@ import aima.core.util.datastructure.PriorityQueue;
 /**
  * @author Paula Díaz Puertas
  */
-public class SumMinimumArcEachCityHeuristicFunction extends AbstractTSPHeuristicFunction {
+public class SumMinimumArcsHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override
 	public double h(Object state) {

@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import aima.core.agent.Action;
+import aima.core.environment.eightpuzzle.NullHeuristicFunction;
 import aima.core.environment.tsp.*;
 import aima.core.search.framework.GoalTest;
 import aima.core.search.framework.HeuristicFunction;
@@ -37,16 +38,14 @@ public class TSPDemo {
 		problems.add(new TitledPart<TravelingSalesmanState>("Problem 3", instantiateProblem3()));
 
 		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
-		// heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic",
-		// new NullHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
 		// heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs
 		// heuristic", new MinimumCostArcHeuristicFunction()));
 		// heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for
 		// each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
 		// heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining
 		// arcs heuristic", new SumArcsHeuristicFunction()));
-		heuristics
-				.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
+		//heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
 		// heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm
 		// heuristic", new HungarianAlgorithmHeuristicFunction()));
 
@@ -60,8 +59,8 @@ public class TSPDemo {
 		List<TitledPart<AbstractTSPGeneticAlgorithmInstantiator>> instantiators = new ArrayList<>();
 		instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[GENETIC ALGORITHM]",
 				new TSPGeneticAlgorithmInstantiator()));
-		instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[SINGLE GENETIC ALGORITHM]",
-				new TSPSingleGeneticAlgorithmInstantiator()));
+		//instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[SINGLE GENETIC ALGORITHM]",
+			//	new TSPSingleGeneticAlgorithmInstantiator()));
 
 		for (TitledPart<TravelingSalesmanState> problem : problems) {
 
@@ -104,7 +103,7 @@ public class TSPDemo {
 
 		e.addSymmetricCost(f, 17);
 
-		List<City> cities = new ArrayList<>();
+		Set<City> cities = new HashSet<>();
 		cities.add(a);
 		cities.add(b);
 		cities.add(c);
@@ -143,7 +142,7 @@ public class TSPDemo {
 
 		e.addSymmetricCost(f, 4);
 
-		List<City> cities = new ArrayList<>();
+		Set<City> cities = new HashSet<>();
 		cities.add(a);
 		cities.add(b);
 		cities.add(c);
@@ -182,7 +181,7 @@ public class TSPDemo {
 
 		e.addSymmetricCost(f, 17);
 
-		List<City> cities = new ArrayList<>();
+		Set<City> cities = new HashSet<>();
 		cities.add(a);
 		cities.add(b);
 		cities.add(c);

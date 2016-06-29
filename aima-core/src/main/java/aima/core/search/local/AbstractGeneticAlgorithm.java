@@ -193,9 +193,8 @@ public abstract class AbstractGeneticAlgorithm<A> {
 		population.clear();
 		population.addAll(newPopulation);
 		
-		if(elitism) {
+		if(elitism)
 			population.add(new Individual<A>(bestIndividual.getRepresentation()));
-		}
 
 		return retrieveBestIndividual(population, fitnessFn);
 	}

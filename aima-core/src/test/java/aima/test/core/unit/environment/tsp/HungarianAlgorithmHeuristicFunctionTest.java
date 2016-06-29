@@ -3,7 +3,9 @@ package aima.test.core.unit.environment.tsp;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -19,7 +21,7 @@ public class HungarianAlgorithmHeuristicFunctionTest {
 	@Test
 	public void testH() {
 		
-		List<City> cities = new ArrayList<>();
+		Set<City> cities = new HashSet<>();
 		
 		City a = new City("A");
 		City b = new City("B");

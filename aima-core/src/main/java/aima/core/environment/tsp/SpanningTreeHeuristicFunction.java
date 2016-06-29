@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Paupa
+ * @author Paula Díaz Puertas
  */
 public class SpanningTreeHeuristicFunction extends AbstractTSPHeuristicFunction {
 

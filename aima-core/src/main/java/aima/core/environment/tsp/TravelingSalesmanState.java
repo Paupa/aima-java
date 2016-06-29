@@ -1,8 +1,6 @@
 package aima.core.environment.tsp;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Paula Díaz Puertas
@@ -15,13 +13,13 @@ public class TravelingSalesmanState {
 	
 	private City lastVisited = null;
 	
-	private List<City> notVisited = new ArrayList<>();
+	private Set<City> notVisited = new HashSet<>();
 	
-	public TravelingSalesmanState(List<City> cities) {
+	public TravelingSalesmanState(Set<City> cities) {
 		notVisited = cities;
 	}
 	
-	public TravelingSalesmanState(List<City> cities, City starter) {
+	public TravelingSalesmanState(Set<City> cities, City starter) {
 		this(cities);
 		visit(starter);
 	}
@@ -41,8 +39,8 @@ public class TravelingSalesmanState {
 		return notVisited.isEmpty();
 	}
 	
-	public List<City> getNotVisited() {
-		return Collections.unmodifiableList(notVisited);
+	public Set<City> getNotVisited() {
+		return Collections.unmodifiableSet(notVisited);
 	}
 	
 	public City getStarterCity() {

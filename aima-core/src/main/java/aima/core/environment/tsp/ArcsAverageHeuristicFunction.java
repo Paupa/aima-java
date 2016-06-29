@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author Paula Díaz Puertas
  */
-public class SumArcsHeuristicFunction extends AbstractTSPHeuristicFunction {
+public class ArcsAverageHeuristicFunction extends AbstractTSPHeuristicFunction {
 
 	@Override
 	public double h(Object state) {
