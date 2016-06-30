@@ -160,7 +160,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 			// If the lines are less than the size of the matrix it means we
 			// haven't found a solution yet, so we need to alter the matrix
 			if (linesUsedToCover != matrixSize) {
-				double minWithoutCover = Integer.MAX_VALUE;
+				double minWithoutCover = Double.MAX_VALUE;
 
 				// We find the minimum value that hasn't been covered
 				for (int i = 0; i < matrixSize; i++) {

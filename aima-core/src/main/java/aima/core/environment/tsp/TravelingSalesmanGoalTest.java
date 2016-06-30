@@ -5,7 +5,7 @@ import aima.core.search.framework.GoalTest;
 /**
  * @author Paula Díaz Puertas
  */
-public class TravelingSalesmanGoalState implements GoalTest {
+public class TravelingSalesmanGoalTest implements GoalTest {
 
 	@Override
 	public boolean isGoalState(Object state) {

@@ -200,7 +200,7 @@ public class TSPDemo {
 
 		try {
 			Problem problem = new Problem(initialState, TravelingSalesmanFunctionFactory.getActionsFunction(),
-					TravelingSalesmanFunctionFactory.getResultFunction(), new TravelingSalesmanGoalState(),
+					TravelingSalesmanFunctionFactory.getResultFunction(), new TravelingSalesmanGoalTest(),
 					TravelingSalesmanFunctionFactory.getStepCostFunction());
 			Search search = new AStarSearch(qSearch, heuristic);
 			SearchAgent agent = new SearchAgent(problem, search);
