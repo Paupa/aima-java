@@ -15,13 +15,13 @@ public class SumMinimumArcsHeuristicFunction extends AbstractTSPHeuristicFunctio
 		//We get all the routes than can be taken in this state
 		List<City> toVisit = getCitiesForRoutes(state);
 		
-		PriorityQueue<Integer> arcs = new PriorityQueue<>();
+		PriorityQueue<Double> arcs = new PriorityQueue<>();
 		
 		for(City from : toVisit) {
 			
 			for(City to : toVisit) {
 				
-				Integer cost = from.getCost(to);
+				Double cost = from.getCost(to);
 				
 				if(cost != null)
 					arcs.add(cost);

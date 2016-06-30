@@ -9,6 +9,9 @@ import aima.core.search.framework.GoalTest;
 import aima.core.search.local.FitnessFunction;
 import aima.core.search.local.Individual;
 
+/**
+ * @author Paula Díaz Puertas
+ */
 public class TSPGeneticAlgorithmUtil {
 
 	private static FitnessFunction<City> _fitnessFunction;
@@ -64,7 +67,7 @@ public class TSPGeneticAlgorithmUtil {
 			if (TSPGeneticAlgorithmUtil.areAnyRepeatedCities(representation))
 				return 0;
 
-			int maxCost = findMaxCost(representation);
+			double maxCost = findMaxCost(representation);
 
 			for (int i = 0; i < representation.size() - 1; i++)
 				totalCost += getCostForFitness(representation.get(i), representation.get(i + 1), maxCost);
@@ -81,13 +84,13 @@ public class TSPGeneticAlgorithmUtil {
 		 * @param cities List of cities where we want to find the maximum cost
 		 * @return The maximum cost. If there's no maximum cost it returns null
 		 */
-		private Integer findMaxCost(List<City> cities) {
-			Integer maxCost = null;
+		private Double findMaxCost(List<City> cities) {
+			Double maxCost = null;
 
 			for (City from : cities) {
 				for (City to : cities) {
 
-					Integer cost = from.getCost(to);
+					Double cost = from.getCost(to);
 					if (cost != null && (maxCost == null || cost > maxCost))
 						maxCost = cost;
 				}
@@ -108,8 +111,8 @@ public class TSPGeneticAlgorithmUtil {
 		 * @return The cost from going from "from" to "to" or maxCost in case
 		 * you can't travel between those cities.
 		 */
-		private int getCostForFitness(City from, City to, int maxCost) {
-			Integer cost = from.getCost(to);
+		private double getCostForFitness(City from, City to, double maxCost) {
+			Double cost = from.getCost(to);
 
 			if (cost == null)
 				return maxCost;

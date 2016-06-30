@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * @author Paula Díaz Puertas
- *
  */
 public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunction {
 
@@ -21,7 +20,7 @@ public class MinimumCostArcHeuristicFunction extends AbstractTSPHeuristicFunctio
 			
 			for(City to : toVisit) {
 				
-				Integer cost = from.getCost(to);
+				Double cost = from.getCost(to);
 				
 				if(cost != null && cost < minCost)
 						minCost = cost;

@@ -46,13 +46,12 @@ public class GraphSearchReinsertExpanded extends QueueSearch {
 		}
 		
 		else {
-			// If the node hasn't been opened before it's put in the opened map and inserted in the frontier
 			
+			// If the node hasn't been opened before it's put in the opened map and inserted in the frontier
 			frontier.insert(node);
 			updateMetrics(frontier.size());
 			explored.put(node.getState(), node);
 		}
-		
 	}
 
 	@Override

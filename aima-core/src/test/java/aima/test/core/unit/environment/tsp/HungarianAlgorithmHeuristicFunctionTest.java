@@ -27,12 +27,12 @@ public class HungarianAlgorithmHeuristicFunctionTest {
 		City b = new City("B");
 		City c = new City("C");
 		
-		a.addCost(b, 54);
-		a.addCost(c, 90);
-		b.addCost(c, 86);
-		b.addCost(a, 20);
-		c.addCost(b, 80);
-		c.addCost(a, 98);
+		a.addCost(b, 54D);
+		a.addCost(c, 90D);
+		b.addCost(c, 86D);
+		b.addCost(a, 20D);
+		c.addCost(b, 80D);
+		c.addCost(a, 98D);
 		
 		cities.add(a);
 		cities.add(b);
@@ -40,11 +40,13 @@ public class HungarianAlgorithmHeuristicFunctionTest {
 		
 		TravelingSalesmanState state = new TravelingSalesmanState(cities, a);
 		
-		assertEquals((int) 20, (int) b.getCost(a));
-		assertEquals((int) 80, (int) c.getCost(b));
-		assertEquals((int) 98, (int) c.getCost(a));
+		double delta = 0.1;
 		
-		assertEquals(190, new HungarianAlgorithmHeuristicFunction().h(state), 0.1);
+		assertEquals(20, b.getCost(a), delta);
+		assertEquals(80, c.getCost(b), delta);
+		assertEquals(98, c.getCost(a), delta);
+		
+		assertEquals(190, new HungarianAlgorithmHeuristicFunction().h(state), delta);
 		
 	}
 

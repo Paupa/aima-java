@@ -11,7 +11,7 @@ import aima.core.util.datastructure.XYLocation;
 public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFunction {
 	
 	private int matrixSize = 0;
-	private Integer[][] matrix = null;
+	private Double[][] matrix = null;
 
 	@Override
 	public double h(Object state) {
@@ -26,7 +26,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 		// Matrix where we save the costs for going from cities(0, matrixSize -
 		// 1) to cities(1, matrixSize)
 		// It'll be modified by the algorithm
-		matrix = new Integer[matrixSize][matrixSize];
+		matrix = new Double[matrixSize][matrixSize];
 
 		// The original algorithm doesn't count with null values.
 		// Having a null value means that the assignment cannot be done
@@ -46,7 +46,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 			boolean rowHasNonNullCost = false;
 
 			for (int j = 1; j < matrixSize + 1; j++) {
-				Integer cost = toVisit.get(i).getCost(toVisit.get(j));
+				Double cost = toVisit.get(i).getCost(toVisit.get(j));
 				matrix[i][j - 1] = cost;
 
 				if (cost != null) {
@@ -73,10 +73,10 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 		// We create zeros on each row
 		for (int i = 0; i < matrixSize; i++) {
-			Integer minCost = null;
+			Double minCost = null;
 
 			for (int j = 0; j < matrixSize; j++) {
-				Integer rowCost = matrix[i][j];
+				Double rowCost = matrix[i][j];
 
 				if (rowCost != null && (minCost == null || rowCost < minCost))
 					minCost = rowCost;
@@ -84,7 +84,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 			if (minCost != null && minCost != 0) {
 				for (int j = 0; j < matrixSize; j++) {
-					Integer cost = matrix[i][j];
+					Double cost = matrix[i][j];
 					if (cost != null)
 						matrix[i][j] = cost - minCost;
 				}
@@ -93,10 +93,10 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 		// We create zeros on each column
 		for (int j = 0; j < matrixSize; j++) {
-			Integer minCost = null;
+			Double minCost = null;
 
 			for (int i = 0; i < matrixSize; i++) {
-				Integer columnCost = matrix[i][j];
+				Double columnCost = matrix[i][j];
 
 				if (columnCost != null && (minCost == null || columnCost < minCost))
 					minCost = columnCost;
@@ -104,7 +104,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 
 			if (minCost != null && minCost != 0) {
 				for (int i = 0; i < matrixSize; i++) {
-					Integer cost = matrix[i][j];
+					Double cost = matrix[i][j];
 					if (cost != null)
 						matrix[i][j] = cost - minCost;
 				}
@@ -160,7 +160,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 			// If the lines are less than the size of the matrix it means we
 			// haven't found a solution yet, so we need to alter the matrix
 			if (linesUsedToCover != matrixSize) {
-				int minWithoutCover = Integer.MAX_VALUE;
+				double minWithoutCover = Integer.MAX_VALUE;
 
 				// We find the minimum value that hasn't been covered
 				for (int i = 0; i < matrixSize; i++) {
@@ -169,7 +169,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 						for (int j = 0; j < matrixSize; j++) {
 
 							if (!columnCovered[j]) {
-								Integer value = matrix[i][j];
+								Double value = matrix[i][j];
 								if (value != null && value < minWithoutCover)
 									minWithoutCover = value;
 							}
@@ -185,7 +185,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 						for (int j = 0; j < matrixSize; j++) {
 
 							if (!columnCovered[j]) {
-								Integer value = matrix[i][j];
+								Double value = matrix[i][j];
 								if (value != null)
 									matrix[i][j] = value - minWithoutCover;
 							}
@@ -201,7 +201,7 @@ public class HungarianAlgorithmHeuristicFunction extends AbstractTSPHeuristicFun
 						for (int j = 0; j < matrixSize; j++) {
 
 							if (columnCovered[j]) {
-								Integer value = matrix[i][j];
+								Double value = matrix[i][j];
 								if (value != null)
 									matrix[i][j] = value + minWithoutCover;
 							}

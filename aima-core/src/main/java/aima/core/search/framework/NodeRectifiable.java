@@ -7,8 +7,6 @@ import java.util.Set;
 import aima.core.agent.Action;
 
 /**
- * TODO
- * 
  * @author Paula Díaz Puertas
  */
 public class NodeRectifiable extends Node {

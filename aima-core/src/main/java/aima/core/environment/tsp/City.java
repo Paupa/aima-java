@@ -10,7 +10,7 @@ public class City {
 	
 	private String id;
 	
-	private Map<City, Integer> canVisit = new HashMap<>();
+	private Map<City, Double> canVisit = new HashMap<>();
 	
 	public City(String id) {
 		
@@ -30,7 +30,7 @@ public class City {
 	 * @param city The city we want to be able to travel from this.
 	 * @param cost Cost of going from this city to the city passed.
 	 */
-	public void addCost(City city, Integer cost) {
+	public void addCost(City city, Double cost) {
 		canVisit.put(city, cost);
 	}
 	
@@ -42,12 +42,12 @@ public class City {
 	 * @param city The city we want to be able to go and come
 	 * @param cost The cost of traveling to and from the city
 	 */
-	public void addSymmetricCost(City city, Integer cost) {
+	public void addSymmetricCost(City city, Double cost) {
 		addCost(city, cost);
 		city.addCost(this, cost);
 	}
 	
-	public Integer getCost(City city) {
+	public Double getCost(City city) {
 		return canVisit.get(city);
 	}
 

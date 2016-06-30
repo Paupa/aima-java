@@ -20,7 +20,7 @@ public class ArcsAverageHeuristicFunction extends AbstractTSPHeuristicFunction {
 			
 			for(City to : toVisit) {
 				
-				Integer cost = from.getCost(to);
+				Double cost = from.getCost(to);
 				
 				if(cost != null) {
 					sumArcs += cost;

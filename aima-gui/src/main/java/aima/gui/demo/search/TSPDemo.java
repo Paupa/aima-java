@@ -88,20 +88,20 @@ public class TSPDemo {
 		City e = new City("E");
 		City f = new City("F");
 
-		a.addSymmetricCost(f, 92);
-		a.addSymmetricCost(e, 113);
-		a.addSymmetricCost(d, 15);
-		a.addSymmetricCost(c, 12);
+		a.addSymmetricCost(f, 92D);
+		a.addSymmetricCost(e, 113D);
+		a.addSymmetricCost(d, 15D);
+		a.addSymmetricCost(c, 12D);
 
-		b.addSymmetricCost(f, 9);
-		b.addSymmetricCost(e, 25);
-		b.addSymmetricCost(d, 32);
-		b.addSymmetricCost(c, 7);
+		b.addSymmetricCost(f, 9D);
+		b.addSymmetricCost(e, 25D);
+		b.addSymmetricCost(d, 32D);
+		b.addSymmetricCost(c, 7D);
 
-		d.addSymmetricCost(f, 39);
-		d.addSymmetricCost(e, 180);
+		d.addSymmetricCost(f, 39D);
+		d.addSymmetricCost(e, 180D);
 
-		e.addSymmetricCost(f, 17);
+		e.addSymmetricCost(f, 17D);
 
 		Set<City> cities = new HashSet<>();
 		cities.add(a);
@@ -122,25 +122,25 @@ public class TSPDemo {
 		City e = new City("E");
 		City f = new City("F");
 
-		a.addSymmetricCost(b, 1);
-		a.addSymmetricCost(c, 3);
-		a.addSymmetricCost(d, 7);
-		a.addSymmetricCost(e, 8);
-		a.addSymmetricCost(f, 6);
+		a.addSymmetricCost(b, 1D);
+		a.addSymmetricCost(c, 3D);
+		a.addSymmetricCost(d, 7D);
+		a.addSymmetricCost(e, 8D);
+		a.addSymmetricCost(f, 6D);
 
-		b.addSymmetricCost(c, 3);
-		b.addSymmetricCost(d, 7);
-		b.addSymmetricCost(e, 8);
-		b.addSymmetricCost(f, 6);
+		b.addSymmetricCost(c, 3D);
+		b.addSymmetricCost(d, 7D);
+		b.addSymmetricCost(e, 8D);
+		b.addSymmetricCost(f, 6D);
 
-		c.addSymmetricCost(d, 5);
-		c.addSymmetricCost(e, 6);
-		c.addSymmetricCost(f, 8);
+		c.addSymmetricCost(d, 5D);
+		c.addSymmetricCost(e, 6D);
+		c.addSymmetricCost(f, 8D);
 
-		d.addSymmetricCost(e, 2);
-		d.addSymmetricCost(f, 5);
+		d.addSymmetricCost(e, 2D);
+		d.addSymmetricCost(f, 5D);
 
-		e.addSymmetricCost(f, 4);
+		e.addSymmetricCost(f, 4D);
 
 		Set<City> cities = new HashSet<>();
 		cities.add(a);
@@ -161,25 +161,25 @@ public class TSPDemo {
 		City e = new City("E");
 		City f = new City("F");
 
-		a.addSymmetricCost(b, 21);
-		a.addSymmetricCost(c, 12);
-		a.addSymmetricCost(d, 15);
-		a.addSymmetricCost(e, 113);
-		a.addSymmetricCost(f, 92);
+		a.addSymmetricCost(b, 21D);
+		a.addSymmetricCost(c, 12D);
+		a.addSymmetricCost(d, 15D);
+		a.addSymmetricCost(e, 113D);
+		a.addSymmetricCost(f, 92D);
 
-		b.addSymmetricCost(c, 7);
-		b.addSymmetricCost(d, 32);
-		b.addSymmetricCost(e, 25);
-		b.addSymmetricCost(f, 9);
+		b.addSymmetricCost(c, 7D);
+		b.addSymmetricCost(d, 32D);
+		b.addSymmetricCost(e, 25D);
+		b.addSymmetricCost(f, 9D);
 
-		c.addSymmetricCost(d, 5);
-		c.addSymmetricCost(e, 18);
-		c.addSymmetricCost(f, 20);
+		c.addSymmetricCost(d, 5D);
+		c.addSymmetricCost(e, 18D);
+		c.addSymmetricCost(f, 20D);
 
-		d.addSymmetricCost(e, 180);
-		d.addSymmetricCost(f, 39);
+		d.addSymmetricCost(e, 180D);
+		d.addSymmetricCost(f, 39D);
 
-		e.addSymmetricCost(f, 17);
+		e.addSymmetricCost(f, 17D);
 
 		Set<City> cities = new HashSet<>();
 		cities.add(a);

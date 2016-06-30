@@ -32,7 +32,7 @@ public class SpanningTreeHeuristicFunction extends AbstractTSPHeuristicFunction 
 				for(int j = 0; j < toVisit.size(); j++) {
 					City toConect = toVisit.get(j);
 					
-					Integer cost = alreadyConected.getCost(toConect);
+					Double cost = alreadyConected.getCost(toConect);
 					if(cost != null && cost < minimumArc) {
 						minimumArc = cost;
 						minimumCity = toConect;

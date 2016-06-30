@@ -63,8 +63,8 @@ public class GraphSearchRectifyExpanded extends QueueSearch {
 		}
 		
 		else {
-			// If the node hasn't been opened before it's put in the opened map and inserted in the frontier
 			
+			// If the node hasn't been opened before it's put in the opened map and inserted in the frontier
 			NodeRectifiable rNode = NodeRectifiable.cloneNode(node);
 			frontier.insert(rNode);
 			updateMetrics(frontier.size());
@@ -75,7 +75,6 @@ public class GraphSearchRectifyExpanded extends QueueSearch {
 			if(parent != null)
 				parent.addChild(rNode);
 		}
-		
 	}
 
 	@Override
