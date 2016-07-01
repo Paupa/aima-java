@@ -3,15 +3,15 @@ package aima.gui.demo.search.util;
 import java.util.Set;
 
 import aima.core.environment.tsp.City;
-import aima.core.search.local.AbstractGeneticAlgorithm;
 import aima.core.search.local.GeneticAlgorithm;
+import aima.core.search.local.BasicGeneticAlgorithm;
 
 public class TSPGeneticAlgorithmInstantiator extends AbstractTSPGeneticAlgorithmInstantiator {
 
 	@Override
-	protected AbstractGeneticAlgorithm<City> instantiate(int individualLength, Set<City> finiteAlphabet,
+	protected GeneticAlgorithm<City> instantiate(int individualLength, Set<City> finiteAlphabet,
 			double mutationProbability) {
-		return new GeneticAlgorithm<City>(individualLength, finiteAlphabet, mutationProbability);
+		return new BasicGeneticAlgorithm<City>(individualLength, finiteAlphabet, mutationProbability);
 	}
 
 }

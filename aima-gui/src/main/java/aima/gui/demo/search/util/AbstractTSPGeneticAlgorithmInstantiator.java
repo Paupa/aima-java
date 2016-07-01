@@ -8,12 +8,12 @@ import java.util.Set;
 import aima.core.environment.tsp.City;
 import aima.core.environment.tsp.TSPGeneticAlgorithmUtil;
 import aima.core.environment.tsp.TravelingSalesmanState;
-import aima.core.search.local.AbstractGeneticAlgorithm;
+import aima.core.search.local.GeneticAlgorithm;
 import aima.core.search.local.Individual;
 
 public abstract class AbstractTSPGeneticAlgorithmInstantiator {
 
-	public AbstractGeneticAlgorithm<City> instantianteGeneticAlgorithm(TravelingSalesmanState problem) {
+	public GeneticAlgorithm<City> instantianteGeneticAlgorithm(TravelingSalesmanState problem) {
 
 		List<City> cities = getAllCities(problem);
 
@@ -41,6 +41,6 @@ public abstract class AbstractTSPGeneticAlgorithmInstantiator {
 		return cities;
 	}
 	
-	protected abstract AbstractGeneticAlgorithm<City> instantiate(int individualLength, Set<City> finiteAlphabet, double mutationProbability);
+	protected abstract GeneticAlgorithm<City> instantiate(int individualLength, Set<City> finiteAlphabet, double mutationProbability);
 
 }

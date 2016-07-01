@@ -8,23 +8,32 @@ import aima.core.search.local.geneticFunctions.GeneticReproductiveFunction;
 import aima.core.search.local.geneticFunctions.mutationFunctions.BasicMF;
 import aima.core.search.local.geneticFunctions.reproductiveImplementations.BasicRF;
 
-public class SingleGeneticAlgorithm<A> extends AbstractGeneticAlgorithm<A> {
+/**
+ * 
+ * @author Paula Díaz Puertas
+ *
+ * @param <A>
+ * 			the type of the alphabet used in the representation of the
+ *          individuals in the population (this is to provide flexibility in
+ *          terms of how a problem can be encoded).
+ */
+public class FlexibleGeneticAlgorithm<A> extends GeneticAlgorithm<A> {
 
 	protected int numberOfGenerations;
 
 	private GeneticReproductiveFunction<A> reproductiveFunction;
 	private GeneticMutationFunction<A> mutationFunction;
 	
-	public SingleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability) {
+	public FlexibleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability) {
 		this(individualLength, finiteAlphabet, mutationProbability, 1, false, 50, new Random());
 	}
 
-	public SingleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability,
+	public FlexibleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability,
 			int numberOfGenerations) {
 		this(individualLength, finiteAlphabet, mutationProbability, 1, false, numberOfGenerations, new Random());
 	}
 
-	public SingleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability,
+	public FlexibleGeneticAlgorithm(int individualLength, Set<A> finiteAlphabet, double mutationProbability,
 			double crossoverProbability, boolean elitism, int numberOfGenerations, Random random) {
 		super(individualLength, finiteAlphabet, mutationProbability, crossoverProbability, elitism, random);
 

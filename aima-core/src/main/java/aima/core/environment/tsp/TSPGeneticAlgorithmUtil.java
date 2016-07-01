@@ -70,10 +70,11 @@ public class TSPGeneticAlgorithmUtil {
 			double maxCost = findMaxCost(representation);
 
 			for (int i = 0; i < representation.size() - 1; i++)
-				totalCost += getCostForFitness(representation.get(i), representation.get(i + 1), maxCost);
+				totalCost += getCostForFitness(representation.get(i), 
+						representation.get(i + 1), maxCost);
 
-			totalCost += getCostForFitness(representation.get(representation.size() - 1), representation.get(0),
-					maxCost);
+			totalCost += getCostForFitness(representation.get(representation.size() - 1),
+					representation.get(0), maxCost);
 
 			return 1 / totalCost;
 		}

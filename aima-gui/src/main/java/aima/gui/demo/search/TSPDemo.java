@@ -17,9 +17,9 @@ import aima.core.search.framework.Search;
 import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.*;
 import aima.core.search.informed.AStarSearch;
-import aima.core.search.local.AbstractGeneticAlgorithm;
-import aima.core.search.local.FitnessFunction;
 import aima.core.search.local.GeneticAlgorithm;
+import aima.core.search.local.FitnessFunction;
+import aima.core.search.local.BasicGeneticAlgorithm;
 import aima.core.search.local.Individual;
 import aima.gui.demo.search.util.AbstractTSPGeneticAlgorithmInstantiator;
 import aima.gui.demo.search.util.TSPGeneticAlgorithmInstantiator;
@@ -229,7 +229,7 @@ public class TSPDemo {
 				population.add(TSPGeneticAlgorithmUtil.generateRandomIndividual(cities));
 			}
 
-			AbstractGeneticAlgorithm<City> ga = instantiator.instantianteGeneticAlgorithm(problem);
+			GeneticAlgorithm<City> ga = instantiator.instantianteGeneticAlgorithm(problem);
 
 			Individual<City> firstBest = ga.retrieveBestIndividual(population, fitnessFunction);
 

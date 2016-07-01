@@ -21,7 +21,7 @@ import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.TreeSearch;
 import aima.core.search.local.FitnessFunction;
-import aima.core.search.local.GeneticAlgorithm;
+import aima.core.search.local.BasicGeneticAlgorithm;
 import aima.core.search.local.HillClimbingSearch;
 import aima.core.search.local.Individual;
 import aima.core.search.local.Scheduler;
@@ -166,7 +166,7 @@ public class NQueensDemo {
 				population.add(NQueensGenAlgoUtil.generateRandomIndividual(boardSize));
 			}
 
-			GeneticAlgorithm<Integer> ga = new GeneticAlgorithm<Integer>(boardSize,
+			BasicGeneticAlgorithm<Integer> ga = new BasicGeneticAlgorithm<Integer>(boardSize,
 					NQueensGenAlgoUtil.getFiniteAlphabetForBoardOfSize(boardSize), 0.15);
 
 			// Run for a set amount of time
