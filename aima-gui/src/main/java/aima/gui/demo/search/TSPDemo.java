@@ -19,11 +19,10 @@ import aima.core.search.framework.qsearch.*;
 import aima.core.search.informed.AStarSearch;
 import aima.core.search.local.GeneticAlgorithm;
 import aima.core.search.local.FitnessFunction;
-import aima.core.search.local.BasicGeneticAlgorithm;
 import aima.core.search.local.Individual;
 import aima.gui.demo.search.util.AbstractTSPGeneticAlgorithmInstantiator;
-import aima.gui.demo.search.util.TSPGeneticAlgorithmInstantiator;
-import aima.gui.demo.search.util.TSPSingleGeneticAlgorithmInstantiator;
+import aima.gui.demo.search.util.TSPBasicGeneticAlgorithmInstantiator;
+import aima.gui.demo.search.util.TSPFlexibleGeneticAlgorithmInstantiator;
 import aima.gui.demo.search.util.TitledPart;
 
 public class TSPDemo {
@@ -39,28 +38,21 @@ public class TSPDemo {
 
 		List<TitledPart<HeuristicFunction>> heuristics = new ArrayList<>();
 		heuristics.add(new TitledPart<HeuristicFunction>("Null heuristic", new NullHeuristicFunction()));
-		// heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs
-		// heuristic", new MinimumCostArcHeuristicFunction()));
-		// heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arc for
-		// each city heuristic", new SumMinimumArcEachCityHeuristicFunction()));
-		// heuristics.add(new TitledPart<HeuristicFunction>("Sum all remaining
-		// arcs heuristic", new SumArcsHeuristicFunction()));
-		//heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
-		// heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm
-		// heuristic", new HungarianAlgorithmHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Minimum cost arcs heuristic", new MinimumCostArcHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Sum minimum arcs heuristic", new SumMinimumArcsHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Arcs average heuristic", new ArcsAverageHeuristicFunction()));
+		heuristics.add(new TitledPart<HeuristicFunction>("Spanning tree heuristic", new SpanningTreeHeuristicFunction()));
+		 heuristics.add(new TitledPart<HeuristicFunction>("Hungarian algorithm heuristic", new HungarianAlgorithmHeuristicFunction()));
 
 		List<TitledPart<QueueSearch>> searchs = new ArrayList<>();
-		// searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new
-		// GraphSearch()));
+		searchs.add(new TitledPart<QueueSearch>("[CONSISTENT]", new GraphSearch()));
 		searchs.add(new TitledPart<QueueSearch>("[RECTIFY EXPANDED]", new GraphSearchRectifyExpanded()));
-		// searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new
-		// GraphSearchReinsertExpanded()));
+		searchs.add(new TitledPart<QueueSearch>("[REINSERT EXPANDED]", new GraphSearchReinsertExpanded()));
 
 		List<TitledPart<AbstractTSPGeneticAlgorithmInstantiator>> instantiators = new ArrayList<>();
-		instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[GENETIC ALGORITHM]",
-				new TSPGeneticAlgorithmInstantiator()));
-		//instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[SINGLE GENETIC ALGORITHM]",
-			//	new TSPSingleGeneticAlgorithmInstantiator()));
+		instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[BASIC GENETIC ALGORITHM]",
+				new TSPBasicGeneticAlgorithmInstantiator()));
+		instantiators.add(new TitledPart<AbstractTSPGeneticAlgorithmInstantiator>("[FLEXIBLE GENETIC ALGORITHM]", new TSPFlexibleGeneticAlgorithmInstantiator()));
 
 		for (TitledPart<TravelingSalesmanState> problem : problems) {
 
@@ -233,18 +225,10 @@ public class TSPDemo {
 
 			Individual<City> firstBest = ga.retrieveBestIndividual(population, fitnessFunction);
 
-			// Run for a set amount of time
 			Individual<City> bestIndividual = ga.geneticAlgorithm(population, fitnessFunction, goalTest);
 
 			String originalStringRepresentation = getStringRepresentation(firstBest);
 			String stringRepresentation = getStringRepresentation(bestIndividual);
-
-			String stringMaxTime = "";
-
-			/*
-			 * if(maxTimeMilliseconds > 0) stringMaxTime = "Max Time (" +
-			 * maxTimeMilliseconds + ") ";
-			 */
 
 			double originalCost = 1 / fitnessFunction.getValue(firstBest);
 			double fitness = fitnessFunction.getValue(bestIndividual);
@@ -252,7 +236,7 @@ public class TSPDemo {
 			System.out.println("Best Individual from initial population (cost = " + originalCost + ")\n"
 					+ originalStringRepresentation + "\n");
 
-			System.out.println(stringMaxTime + "Best Individual\n" + stringRepresentation);
+			System.out.println("Best Individual\n" + stringRepresentation);
 			System.out.println("Fitness         = " + fitness);
 			System.out.println("Cost         	= " + 1 / fitness);
 			System.out.println("Is Goal         = " + goalTest.isGoalState(bestIndividual));

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import aima.core.search.framework.GoalTest;
 import aima.core.search.local.geneticFunctions.mutationFunctions.BasicMF;
-import aima.core.search.local.geneticFunctions.reproductiveImplementations.BasicRF;
+import aima.core.search.local.geneticFunctions.reproductiveFunctions.BasicRF;
 
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): Figure 4.8, page

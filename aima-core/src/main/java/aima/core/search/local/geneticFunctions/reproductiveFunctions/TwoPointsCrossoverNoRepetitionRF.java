@@ -1,4 +1,4 @@
-package aima.core.search.local.geneticFunctions.reproductiveImplementations;
+package aima.core.search.local.geneticFunctions.reproductiveFunctions;
 
 import java.util.ArrayList;
 import java.util.List;

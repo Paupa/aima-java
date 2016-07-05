@@ -92,8 +92,8 @@ public class AStarSearchNonConsistentHeuristicDemo {
 			Search search = new AStarSearch(qSearch, heuristic);
 			SearchAgent agent = new SearchAgent(problem, search);
 			System.out.println("Goal State:\n" + goalState.toString() + "\n");
-			// printActions(agent.getActions());
-			// System.out.println();
+			printActions(agent.getActions());
+			System.out.println();
 			printInstrumentation(agent.getInstrumentation());
 
 			System.out.println("\n");

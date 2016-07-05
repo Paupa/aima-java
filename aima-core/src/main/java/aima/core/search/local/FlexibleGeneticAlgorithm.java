@@ -6,7 +6,7 @@ import java.util.Set;
 import aima.core.search.local.geneticFunctions.GeneticMutationFunction;
 import aima.core.search.local.geneticFunctions.GeneticReproductiveFunction;
 import aima.core.search.local.geneticFunctions.mutationFunctions.BasicMF;
-import aima.core.search.local.geneticFunctions.reproductiveImplementations.BasicRF;
+import aima.core.search.local.geneticFunctions.reproductiveFunctions.BasicRF;
 
 /**
  * 
